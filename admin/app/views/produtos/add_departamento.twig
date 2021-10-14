@@ -1,0 +1,77 @@
+{{ header }}
+
+{% if breadcrumbs is defined %}
+  <ol class="breadcrumb">
+  {% for item in breadcrumbs %}
+      <li class="breadcrumb-item {{ item.active == true ? 'active' : '' }}"><a class="{{ item.active == true ? '' : 'text-black-50' }}" href="{{ item.url }}">{{ item.name }}</a></li>
+    {% endfor %}
+  </ol>
+{% endif %} 
+
+<form id="formNovaPagina" method="post" role="form" enctype="multipart/form-data">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      Novo departamento
+      <button type="submit" id="enviarProduto" class="btn btn-labeled btn-success">
+        <span class="btn-label"><i class="fas fa-check mr-2"></i></span>
+        Salvar
+      </button>    
+    </div>
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <div class="form-group">
+            <label for="inputCapa">Nome do departamento *</label>
+            <input type="text" id="inputTitulo" class="form-control" name="inputNome" required>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 text-center">
+          <label>Imagem</label><br>
+          <img id="preview" src="{{ assets }}img/default-avatar.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
+          <p class="small mt-3">Se você não configurar uma imagem, será selecionada aleatoriamente uma imagem dos produtos deste departamento.</p>
+          <div class="mt-3">
+            <input type="file" class="d-none" name="inputImagem" id="inputImagem">
+            <a href="javascript:;" class="btn btn-primary btn-upload"><i class="fas fa-upload"></i> Enviar</a>
+          </div>
+        </div>
+      </div>
+  
+      <div id="resultado" class="mt-3"></div>
+    </div>
+  </div>
+</form>
+
+{{ footer }}
+
+<script>
+
+  function events() {
+    $('[data-toggle="tooltip"]').tooltip(); 
+
+  }
+
+  $(document).ready(function () {
+
+    $('.btn-upload').click(function () {
+      $('#inputImagem').click();
+    })
+
+    $('#inputImagem').change(function (e) {
+      let _t = this;
+      const [file] = _t.files;
+      if (file) {
+        $('#preview').attr('src', URL.createObjectURL(file));
+      }
+    });
+
+    $('#inputLinkExterno').click(function () {
+      if ($(this).prop('checked')) {
+        $('#inputUrl').removeAttr('disabled').attr('required', true);
+      } else {
+        $('#inputUrl').attr('disabled', true).removeAttr('required').val('');
+      }
+    });
+  })
+
+</script>

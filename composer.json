@@ -1,0 +1,21 @@
+{
+    "name": "mubbi/mvc-psr-framework",
+    "description": "A simple PHP Framework based on MVC pattern and PSR guidelines",
+    "type": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mubbasher Ahmed Qureshi",
+            "email": "mubbi_qureshi@hotmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "twig/twig": "^3.3"
+    },
+    "autoload": {
+    "psr-4": {
+        "Mubbi\\" : "framework/system/"
+    }
+ }
+}

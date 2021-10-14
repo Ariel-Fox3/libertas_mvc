@@ -1,0 +1,170 @@
+{{ header }}
+<div class="container-fluid p-0">
+  <div class="card">
+    <div class="card-header">
+      Gerenciar leads
+    </div>
+    <div class="card-body">
+      {# <h4 class="card-title">Title</h4>
+      <p class="card-text">Text</p> #}
+      <div class="form-group">
+        <label>Buscar</label>
+        <input type="text" class="form-control" id="inputSearch"
+          placeholder="Você pode buscar por qualquer informação da tabela (nome, e-mail, telefone ou data)">
+      </div>
+      <table id="example" class="display table table-hover table-striped" style="width:100%">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sandra Szpoganicz</td>
+            <td>2021-08-03 22:01:31</td>
+            <td>sandraszpo@yahoo.com.br</td>
+            <td>+5547999793117</td>
+            <td class="text-right">
+              <div class="badge badge-info">Em aberto</div>
+              <a data-toggle="modal" data-target="#modalDetalhes" class="btn btn-square btn-dark ml-2">Mais detalhes</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Sandra Szpoganicz</td>
+            <td>2021-08-03 22:01:31</td>
+            <td>sandraszpo@yahoo.com.br</td>
+            <td>+5547999793117</td>
+            <td class="text-right">
+              <div class="badge badge-info">Em aberto</div>
+              <a data-toggle="modal" data-target="#modalDetalhes" class="btn btn-square btn-dark ml-2">Mais detalhes</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Sandra Szpoganicz</td>
+            <td>2021-08-03 22:01:31</td>
+            <td>sandraszpo@yahoo.com.br</td>
+            <td>+5547999793117</td>
+            <td class="text-right">
+              <div class="badge badge-info">Em aberto</div>
+              <a data-toggle="modal" data-target="#modalDetalhes" class="btn btn-square btn-dark ml-2">Mais detalhes</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-muted">
+      Atualização automática em 2:00
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes da solicitação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row">
+          <div class="col">
+            <h4>Sandra Szpoganicz</h4>
+            <h5>[Geração de cadastros] Posts</h5>
+            <div class="badge badge-info mb-3">Facebook</div>
+            <p class="m-0">
+              <i class="fas fa-phone pr-2"></i> <span>+5547999793117</span>
+            </p>
+            <p>
+              <i class="fas fa-envelope pr-2"></i> <span>sandraszpo@yahoo.com.br</span>
+            </p>
+          </div>
+        </div>
+        <div class="table-responsive mt-4">
+          <table class="table table-sm table-striped">
+            <tbody>
+              <tr>
+                <td class="font-weight-bold text-right">Gerado em</td>
+                <td class="small">2021-08-03 22:01:31</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold text-right">Nome do anúncio</td>
+                <td class="small">#2 Post</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold text-right">Formulário</td>
+                <td class="small">Formulário 30/07/2021 14:09</td>
+              </tr>
+              <tr>
+                <td class="font-weight-bold text-right">Orgânico</td>
+                <td class="small"><i class="fas fa-times"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center mt-3">
+          <select class="">
+            {% if user_info.configs.status is defined and user_info.configs.status|length > 0 %}
+              {% for status in user_info.configs.status %}
+                <option value="{{ status }}">{{ status }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+
+    $('select').select2({
+      placeholder: 'Select an option'
+    });
+
+    // DataTable
+    var table = $('#example').DataTable({
+      language: {
+        processing: "Processando...",
+        search: "Buscar&nbsp;:",
+        lengthMenu: "Mostrar _MENU_ itens",
+        info: "Mostrando do item _START_ ao _END_ de _TOTAL_ itens no total",
+        infoEmpty: "Nenhum item para a busca",
+        infoFiltered: "(_MAX_ itens no total)",
+        infoPostFix: "",
+        loadingRecords: "Carregando...",
+        zeroRecords: "Nenhum item para a busca",
+        emptyTable: "Nenhum item para a busca",
+        paginate: {
+          first: "Primeiraf",
+          previous: "Anterior",
+          next: "Próxima",
+          last: "Última"
+        }
+        //aria: {
+        //sortAscending:  ": activer pour trier la colonne par ordre croissant",
+        //sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        //}
+      },
+      initComplete: function () {
+        $('#example_filter').hide();
+      }
+    });
+
+    $('#inputSearch').keyup(function () {
+      table.search(this.value).draw();
+    })
+
+  });
+
+</script>
+
+{{ footer }}

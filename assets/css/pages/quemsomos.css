@@ -1,0 +1,65 @@
+.header-quemsomos{
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding-top: 100px;
+}
+
+.header-quemsomos::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.9);
+  height: 100%;
+}
+
+.header-quemsomos h2{
+  color: #fff;
+  font-weight: 600;
+  font-size: 60px;
+  text-align: center;
+}
+
+@media (max-width: 767px){
+  .header-quemsomos h2{
+    font-size: 30px;
+  }
+}
+
+.primeiro-lugar{
+  border-top: 3px solid var(--bordo);
+  border-bottom: 3px solid var(--bordo);
+}
+
+.primeiro-lugar .circle{
+  background-color: var(--bordo);
+  clip-path: circle(50% at 50% 50%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: #fff;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.primeiro-lugar .circle div{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.primeiro-lugar .circle h1{
+  text-transform: uppercase;
+}
+
+.primeiro-lugar .circle h5{
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.primeiro-lugar .circle p{
+  font-weight: 200;
+}

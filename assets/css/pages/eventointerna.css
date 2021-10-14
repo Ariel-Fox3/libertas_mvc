@@ -1,0 +1,75 @@
+#evento-interna{
+  background-position: center;
+  background-size: cover;
+  min-height: calc(100vh - 105px);
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#evento-interna h1{
+  color: var(--mar);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 55px;
+  position: relative;
+  min-height: 130px;
+  margin-bottom: 50px;
+}
+
+#evento-interna span.preco {
+  border: 2px solid var(--mar);
+  color: var(--mar);
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 12px;
+  padding: 12px 22px;
+}
+
+@media(max-width: 767px){
+  #evento-interna h1{
+    min-height: unset;
+    padding-bottom: 75px;
+    font-size: 42px;
+  }
+
+  #evento-interna h1 span{
+    bottom: 10px;
+  }
+}
+
+#evento-interna p{
+  color: #fff;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#evento-interna .item span{
+  color: #fff;
+  font-weight: 500;
+  font-size: 19px;
+  letter-spacing: .35px;
+}
+
+#evento-interna .item span strong{
+  font-weight: 800;
+}
+
+#evento-interna .data-limite{
+  color: var(--mar);
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--mar);
+  margin-bottom: 40px;
+  width: fit-content;
+}
+
+#evento-interna .btn-inscreva{
+  background-color: var(--mar);
+  color: black;
+  border-radius: 8px;
+  padding: 15px 28px;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 18px;
+}

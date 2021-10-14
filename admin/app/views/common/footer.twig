@@ -1,0 +1,49 @@
+</main>
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="row text-muted">
+      <div class="col-6 text-start">
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Suporte</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Privacidade</a>
+          </li>
+          <li class="list-inline-item">
+            <a class="text-muted" href="#">Termos de uso</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 text-right">
+        <p class="mb-0">
+          &copy; 2021 - <a href="https://foxthree.com.br" target="_blank" class="text-muted">FOX3</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+
+
+<script>
+  
+  $(document).ready(function () {
+    {% if notify is defined and notify is iterable %}
+      beto.notify("{{ notify.type }}", "{{ notify.title }}", "{{ notify.text }}");
+    {% endif %}
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    {% if painel_info.cores is defined %}
+      document.documentElement.style.setProperty('--primaria', '{{ painel_info.cores[0] }}');
+      document.documentElement.style.setProperty('--secundaria', '{{ painel_info.cores[1] }}');
+    {% endif %}
+
+  })
+
+    
+  </script>
+
+</body>

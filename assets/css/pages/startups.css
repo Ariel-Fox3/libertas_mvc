@@ -1,0 +1,124 @@
+#startups{
+  min-height: calc(100vh - 105px);
+  background-position: center top;
+  background-size: cover;
+}
+
+#header_startups{
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  z-index: 999;
+}
+
+#header_startups .navbar-nav .nav-item .nav-link{
+  padding: 5px 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+}
+
+#header_startups .navbar-nav .nav-item.destaque .nav-link {
+  border: 2px solid #fff;
+}
+
+@media (max-width: 767px){
+  #header_startups .navbar-brand{
+    max-width: 60%;
+  }
+
+  #header_startups .navbar-brand img{
+    max-width: 100%;
+  }
+
+  #header_startups .nav-link{
+    text-align: center;
+  }
+}
+
+#header_startups .redes{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+#header_startups .redes .btn{
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  font-size: 22px;
+  color: transparent;
+  background-color: #fff;
+  color: #0c0f1f;
+  transition: .4s ease;
+}
+
+#header_startups .redes .btn:hover{
+  background-color: transparent;
+  color: #fff;
+}
+
+
+/* HEADER */
+
+#startups .btn-cadastro{
+  background-color: var(--mar);
+  color: #fff;
+  display: block;
+  padding: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#startups h1{
+  color: var(--mar);
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 35px;
+  font-size: 50px;
+}
+
+#startups p{
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+#startups .fone{
+  color: #fff;
+  margin-top: 100px;
+}
+
+#startups{
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+@media(max-width: 767px){
+  #startups{
+    padding-top: 50px;
+    
+    padding-bottom: 50px;
+  }
+
+  #header_startups{
+    position: relative;
+    background-color: black;
+  }
+
+  #header_startups .navbar{
+    width: 100%;
+    justify-content: center;
+  }
+
+}

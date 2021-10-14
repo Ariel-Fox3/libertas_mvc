@@ -1,0 +1,168 @@
+{{ header }}
+
+{% if breadcrumbs is defined %}
+  <ol class="breadcrumb">
+  {% for item in breadcrumbs %}
+      <li class="breadcrumb-item {{ item.active == true ? 'active' : '' }}"><a class="{{ item.active == true ? '' : 'text-black-50' }}" href="{{ item.url }}">{{ item.name }}</a></li>
+    {% endfor %}
+  </ol>
+{% endif %} 
+
+<div class="card">
+  <div class="card-header">Anexar imagens (<b>{{ produto.nome }}</b>)</div>
+  <div class="card-body">
+    <form id="formArquivo" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+      <input type="hidden" name="idproduto" value="{{ produto.idproduto }}">
+      <input type="hidden" name="idarquivo" value="">
+      <div class="form-group">
+        <label for="inputNome">Nome do arquivo</label>
+        <input type="text" id="inputNome" class="form-control" name="inputNome" required>
+      </div>
+      <div class="form-group">
+        <label for="descricao">Descrição</label>
+        <div id="summernote_arquivo"></div>
+        <textarea class="d-none" name="descricao"></textarea>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="inputData">Data publicacão</label>
+            <input type="date" class="form-control" autocomplete="off" name="inputData" required>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="inputUrl">URL</label>
+            <input type="text" class="form-control" name="inputUrl" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputImagem">Arquivo</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="str-arquivo" placeholder="Procurar arquivo" readonly>
+          <div class="input-group-append">
+            <a class="btn btn-info text-white" id="btn-arquivo" type="button">Procurar</a>
+          </div>
+        </div>
+        <input type="file" id="inputImagem" name="inputImagem" class="d-none">
+        <p class="help-block">Selecione o arquivo (.jpg, .jpeg, .png, .gif).</p>
+      </div>
+      <button type="submit" id="enviarProduto" class="btn btn-labeled btn-success">
+        <span class="btn-label"><i class="fas fa-check"></i></span>
+        Enviar arquivo
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="card mt-5">
+  <div class="card-header">Gerenciar imagens</div>
+  <div class="card-body">
+    <div id="tabela-arquivos">
+      {% if arquivos is defined %}
+        {% for arquivo in arquivos %}
+          <div class="row hover mb-2" data-id="{{ arquivo.idarquivo }}">
+            <div class="col-md-1 my-auto text-center">
+              <a href="javascript:void(0)" class="moveArquivo btn btn-secondary" data-id="{{ arquivo.idarquivo }}"><i class="fas fa-arrows-alt-v"></i></a>
+            </div>
+            <div class="col-md-2 my-auto text-center">
+              <div class="img-pagina mx-auto" data-fancybox="arquivos" href="{{ arquivo.arquivo }}" style="cursor: pointer; background-image: url('{{ arquivo.arquivo }}');"></div>
+            </div>
+            <div class="col my-auto">
+              <h3>{{ arquivo.nome }}</h3>
+              {% if arquivo.bloco is defined and arquivo.bloco.chave is defined %}
+                <div class="small badge badge-warning">Bloco: {{ arquivo.bloco.chave }}</div>
+              {% endif %}
+              <div class="desc">{{ arquivo.descricao }}</div>
+              <p class="m-0"><span class="small text-muted">Link da imagem: <a href="{{ arquivo.url }}" target="_blank">{{ arquivo.url }}</a></span></p>
+              <span class="small text-muted data" data-date="{{ arquivo.original_data }}">{{ arquivo.data }}</span>
+            </div>
+            <div class="col-md-2 my-auto text-center">
+              <a href="javascript:void(0)" class="editArquivo btn btn-info" data-nome="{{ arquivo.nome }}" data-id="{{ arquivo.idarquivo }}"><i class="fas fa-pen"></i></a>
+              <a href="javascript:void(0)" class="removeArquivo btn btn-danger" data-id="{{ arquivo.idarquivo }}"><i class="fas fa-trash"></i></a>
+            </div>
+          </div>
+        {% endfor %}  
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{{ footer }}
+
+<script>
+
+  $(document).ready(function() {
+  
+    $("#str-arquivo, #btn-arquivo").click(function() {
+      $("#inputImagem").click();
+    });
+  
+    $('#inputImagem').change(function() {
+      $('#str-arquivo').val($(this).prop('files')[0].name);
+    })
+
+    $('#summernote_arquivo').summernote({
+      tabsize: 2,
+      height: 100,
+      callbacks: {
+        onKeyup: function(e) {
+          let c = $(this).summernote('code').toString();
+          $('[name="descricao"]').html(c.trim());
+        },
+        onChangeCodeview: function(e) {
+          let c = $(this).summernote('code').toString();
+          $('[name="descricao"]').html(c.trim());
+        }
+      }
+    });
+
+    $('.editArquivo').click(function () {
+      let idarquivo = $(this).attr('data-id');
+      
+      let nome = $(this).attr('data-nome');
+      let descricao = $(this).parent().prev().find('.desc').html();
+      let url = $(this).parent().prev().find('a').attr('href');
+      let data = $(this).parent().prev().find('.data').attr('data-date');
+
+      $('[name="inputNome"]').val(nome);
+      $('[name="descricao"]').html(descricao);
+      $('#summernote_arquivo').summernote('code', descricao);
+      $('[name="inputData"]').val(data);
+      $('[name="inputUrl"]').val(url);
+      $('[name="idarquivo"]').val(idarquivo);
+      $('button[type="submit"]').html('<i class="fas fa-check"></i> Salvar alterações');
+
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+
+    });
+
+    $('.removeArquivo').click(function () {
+      let idarquivo = $(this).attr('data-id');
+      Swal.fire({ 
+        title: 'Excluir arquivo', 
+        icon: 'question', 
+        text: 'Você realmente deseja excluir este arquivo?', 
+        showCancelButton: true, 
+        confirmButtonText: `Sim`, 
+        cancelButtonText: `Cancelar`, 
+      }).then((result) => { 
+        if (result.isConfirmed) { 
+          $.post('{{ url_remover_arquivo }}', {
+            id: idarquivo
+          }, function (res) {
+            if (res.error == false) {
+              location.reload();
+            } else {
+              Swal.fire('Erro ao excluir arquivo', res.msg, 'error');
+            }
+          })
+        } 
+      }); 
+      
+    });
+  
+  });
+
+</script>

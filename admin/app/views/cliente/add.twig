@@ -1,0 +1,337 @@
+{{ header }}
+
+  <div class="container-fluid p-0">
+
+    <form id="formCriarCliente" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col"><h1 class="h3 mb-3">Novo cliente</h1></div>
+        <div class="col text-right"><button type="submit" id="btnCriarCliente" class="btn btn-lg btn-info mb-3">Criar cliente</button></div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-3 col-xl-3">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Configurações</h5>
+            </div>
+      
+            <div class="list-group list-group-flush" role="tablist">
+              <a class="list-group-item list-group-item-action active" data-toggle="list" href="#informacoes" role="tab">Informações</a>
+              <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#contratos" role="tab">Contratos</a>
+                <a class="list-group-item list-group-item-action disabled" data-toggle="list" href="#cronograma" role="tab">Cronograma</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 col-xl-9">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="informacoes" role="tabpanel">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <div class="card">
+                      <div class="card-header pt-4">
+                        <h5 class="card-title text-center">Informações do cliente</h5>
+                      </div>
+                      <div class="card-body">
+            
+                        <div class="custom-control custom-switch text-center mb-2">
+                          <input type="checkbox" class="custom-control-input" id="inputResponder_crono" name="inputResponder_crono" value="1">
+                          <label class="custom-control-label" for="inputResponder_crono">Cliente pode responder cronogramas</label>
+                        </div>
+            
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="form-group">
+                              <label for="inputNome">Nome *</label>
+                              <input type="text" id="inputNome" class="form-control btn-outline-default" name="inputNome" required>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label for="inputInstagram"><i class="fab fa-instagram mr-2"></i> Instagram</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                              </div>
+                              <input type="text" class="form-control" name="inputInstagram" placeholder="Username">
+                            </div>
+                          </div>
+                        </div>
+            
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="inputDoc">Documento (CNPJ/CPF) *</label>
+                              <input type="text" id="inputDocumento" class="form-control btn-outline-default" name="inputDocumento" required>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="inputRazao">Razão social</label>
+                              <input type="text" id="inputRazao_social" class="form-control btn-outline-default" name="inputRazao_social">
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="inputEmail">E-mail de contato *</label>
+                              <input type="email" id="inputEmail_contato" class="form-control btn-outline-default" name="inputEmail_contato" required>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-group">
+                              <label for="inputEmail">E-mail financeiro</label>
+                              <input type="email" id="inputEmail_financeiro" class="form-control btn-outline-default" name="inputEmail_financeiro">
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputCelular">Telefone de contato *</label>
+                              <input type="text" id="inputFone_contato" class="form-control btn-outline-default" name="inputFone_contato" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputFixo">Telefone empresarial</label>
+                              <input type="text" id="inputFone_empresarial" class="form-control btn-outline-default" name="inputFone_empresarial" >
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputCidade">Cidade *</label>
+                              <input type="text" id="inputCidade" class="form-control btn-outline-default" name="inputCidade" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputEstado">Estado (UF) *</label>
+                              <input type="text" id="inputEstado" class="form-control btn-outline-default" name="inputEstado" required>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <!-- <label for="inputObs">Observações</label> -->
+                          <!-- <textarea class="form-control btn-outline-default editor-padrao" name="inputObs"></textarea> -->
+                          <label for="inputObs">Observações</label>
+                          <!-- <textarea class="editor-atividades" name="inputObs"></textarea> -->
+                          <div class="clearfix" name="inputObs">
+                            <div class="quill-toolbar">
+                              <span class="ql-formats">
+                                <select class="ql-font"></select>
+                                <select class="ql-size"></select>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                                <button class="ql-strike"></button>
+                              </span>
+                              <span class="ql-formats">
+                                <select class="ql-color"></select>
+                                <select class="ql-background"></select>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-script" value="sub"></button>
+                                <button class="ql-script" value="super"></button>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-header" value="1"></button>
+                                <button class="ql-header" value="2"></button>
+                                <button class="ql-blockquote"></button>
+                                <button class="ql-code-block"></button>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-list" value="ordered"></button>
+                                <button class="ql-list" value="bullet"></button>
+                                <button class="ql-indent" value="-1"></button>
+                                <button class="ql-indent" value="+1"></button>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-direction" value="rtl"></button>
+                                <select class="ql-align"></select>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-link"></button>
+                                <button class="ql-image"></button>
+                                <button class="ql-video"></button>
+                              </span>
+                              <span class="ql-formats">
+                                <button class="ql-clean"></button>
+                              </span>
+                            </div>
+                            <div class="quill-editor"></div>
+                          </div>
+                        </div>
+            
+                        <div class="d-inline-block mr-3 custom-control custom-switch mb-2">
+                          <input type="checkbox" class="custom-control-input" id="inputAtivo" name="inputAtivo" value="1" checked>
+                          <label class="custom-control-label" for="inputAtivo">Ativo</label>
+                        </div>
+
+                        <!-- <button type="submit" class="btn btn-success" id="enviarProduto">Novo cliente</button> -->
+            
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-title">Imagem</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="text-center">
+                          <img alt="" src="{{ default_img }}" class="rounded-circle img-responsive mt-2" width="128" height="128" />
+                          <div class="mt-2">
+                            <input type="file" class="d-none" name="inputImagem" id="inputImagem">
+                            <a href="javascript:;" class="btn btn-primary btn-upload"><i class="fas fa-upload"></i> Enviar</a>
+                          </div>
+                          <small>For best results, use an image at least  128px by 128px in .jpg format</small>
+                        </div>
+                      </div>
+                    </div>
+            
+                    {# <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-title">Arquivos</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-12 text-right">
+                            <a href="javascript:;" class="btn btn-sm btn-primary btn-arquivos">Enviar arquivos</a>
+                            <input type="file" class="d-none" id="inputArquivos" multiple>
+                          </div>
+                          <div class="col-12 mt-2">
+                            <ul class="list-group list-unstyled" id="list-arquivos-cliente">
+                              <li class="list-group-item bg-light" data-toggle="tooltip" title="Arquivo pendente"><i class="fas fa-clock"></i> Nome do arquivo</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div> #}
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    
+  </div>
+
+{{ footer }}
+
+
+  <script>
+
+    function sendFiles(idcliente) {
+      let list = $('#list-arquivos-cliente');
+      let files = $('#inputArquivos').prop('files');
+      for (let file of files) {
+        let fdata = new FormData();
+        fdata.append('file', file);
+        fdata.append('idcliente', idcliente);
+        fdata.append('nome', file.name);
+        $.ajax({
+          url: 'cliente/ajax/ajax_enviar_arquivo.php',
+          type: "POST",
+          data: fdata,
+          processData: false,
+          contentType: false,
+          success: function (r) {
+            if (r == '') {
+              let m = `O arquivo <b>${file.name}</b> foi enviado com sucesso`;
+              showNotification('info', m, 'Arquivo enviado com sucesso');
+              list.find('li[data-file-name="'+file.name+'"]').attr('data-original-title', 'Arquivo enviado').find('i').attr('class', 'fas fa-check');
+            } else {
+              let m = `O arquivo <b>${file.name}</b> não pôde ser enviado.<br>${r}`;
+              showNotification('error', m, 'Erro ao enviar arquivo');
+              list.find('li[data-file-name="'+file.name+'"]').attr('data-original-title', 'Erro ao enviar').find('i').attr('class', 'fas fa-times');
+            }
+            $('[data-toggle="tooltip"]').tooltip('update');
+          }
+        });
+      }
+      showNotification('success', 'Todos os arquivos foram processados.', 'Concluído');
+      setTimeout(() => {
+        location.href = "?pg=index&lc=cliente&id="+idcliente;
+      }, 3000);
+
+    }
+
+    function sendInfos(f, b) {
+      f.ajaxForm({
+        beforeSend: function() {
+          b.attr('disabled', 'disabled');
+        },
+        success: function(e) {
+          try {
+            let obj = JSON.parse(e);
+            // b.removeAttr('disabled');
+            // $.cookie('pendent_notify', 'novo-cliente');
+            // location.href = '?pg=index&lc=cliente';
+            showNotification('success', 'Novo cliente criado com sucesso', 'Sucesso');
+            setTimeout(() => {
+              sendFiles(obj.idcliente);
+            }, 1000);
+          } catch(err) {
+            confirmar('danger', 'Erro ao criar o cliente', e, null, null, null, null);  
+          }
+        },
+        error: function(e) {
+          b.removeAttr('disabled');
+          confirmar('danger', 'Erro ao criar o cliente', e, null, null, null, null);
+        }
+      });
+      f.submit();
+    }
+
+    $(document).ready(function() {
+
+      // var f = $('#formCriarCliente');
+      // $('#btnCriarCliente').click(function () {
+      //   sendInfos(f, $(this));
+      // });
+
+      $('.btn-upload').click(function () {
+        $('#inputImagem').click();
+      });
+
+      $('#inputImagem').change(function () {
+        let n = $(this).prop('files');
+        let f = n[0];
+        $('.btn-upload').removeClass('btn-primary').addClass('btn-success').attr('disabled', true).html('<i class="fas fa-check"></i> Enviado');
+        $(this).parent().next().text(f.name)
+      });
+
+      var formatFone = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 0 0000-0000' : '(00) 0000-00009';
+      },
+      foneOptions = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(formatFone.apply({}, arguments), options);
+          }
+      };
+      
+      var formatDoc = function (val) {
+        return val.replace(/\D/g, '').length > 11 ? '00.000.000/0000-00' : '000.000.000-00999';
+      },
+      docOptions = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(formatDoc.apply({}, arguments), options);
+          }
+      };
+
+      $('#inputFone_contato').mask(formatFone, foneOptions);
+      $('#inputFone_empresarial').mask(formatFone, foneOptions);
+      $('#inputDocumento').mask(formatDoc, docOptions);  
+
+    });
+
+  </script>

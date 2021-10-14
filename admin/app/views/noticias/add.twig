@@ -1,0 +1,166 @@
+{{ header }}
+
+<div class="card">
+  <div class="card-header">Nova notícia</div>
+  <div class="card-body">
+    <form id="form_noticia" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+      <input type="hidden" name="idnoticia"  value="<?=$idnoticia?>">
+      <input type="hidden" name="obj" class="form-control">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="inputNome">Nome da notícia</label>
+            <input type="text" class="form-control" name="inputNome" required>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label>Data para exibição</label>
+                <input type="date" class="form-control" name="inputData" required>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label>Tag</label>
+                <input type="text" class="form-control" name="inputTag">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputAutores">Descrição curta</label>
+            <!-- <textarea class="summernote" name="inputAutores"><?=$noticia->getAutores()?></textarea> -->
+            <div id="summernote_autores"></div>
+            <textarea class="d-none" name="inputAutores"></textarea>
+          </div>
+
+          <!-- <div class="checkbox center mb-3">
+            <input type="checkbox" name="inputAtivo" value="1" class="switch_1" <?=$noticia->getAtivo() == '1' ? 'checked' : ''?>>
+            <label for="inputAtivo">Ativo</label>
+          </div> -->
+
+          <!-- <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="deleted" name="deleted" value="1">
+            <label class="custom-control-label" for="deleted">Ver excluídos</label>
+          </div> -->
+
+        </div>
+
+        <div class="col-3">
+          <div class="text-center">
+            <!-- <?php if ($noticia->getBanner() != '') { ?>
+              <label>Banner *</label><br>
+              <img alt="" src="../../uploads/noticias/<?=$noticia->getBanner()?>" class="img-responsive mt-2" width="300" height="300" />
+              <div class="mt-3">
+                <input type="file" class="d-none" name="inputBanner" id="inputBanner">
+                <a href="javascript:;" class="btn btn-primary btn-upload-banner"><i class="fas fa-upload"></i> Substituir</a>
+                <div id="res_upload_banner" class="small mt-2"></div>
+              </div>
+            <?php } else { ?> -->
+              <label>Banner *</label><br>
+              <img alt="" src="assets/img/pagina-default.png" class="img-fluid mt-2" />
+              <div class="mt-3">
+                <input type="file" class="d-none" name="inputBanner" id="inputBanner">
+                <a href="javascript:;" class="btn btn-primary btn-upload-banner"><i class="fas fa-upload"></i> Enviar</a>
+                <div id="res_upload_banner" class="small mt-2"></div>
+              </div>
+          </div>      
+
+          
+        </div>
+
+        <div class="col-3">
+          <div class="text-center">
+            <!-- <?php if ($noticia->getImagem() != '') { ?>
+              <label>Imagem *</label><br>
+              <img alt="" src="../../uploads/noticias/<?=$noticia->getImagem()?>" class="img-responsive mt-2" width="300" height="300" />
+              <div class="mt-3">
+                <input type="file" class="d-none" name="inputImagem" id="inputImagem">
+                <a href="javascript:;" class="btn btn-primary btn-upload-imagem"><i class="fas fa-upload"></i> Substituir</a>
+                <div id="res_upload_imagem" class="small mt-2"></div>
+              </div>
+            <?php } else { ?> -->
+              <label>Imagem *</label><br>
+              <img alt="" src="assets/img/pagina-default.png" class="img-fluid mt-2" />
+              <div class="mt-3">
+                <input type="file" class="d-none" name="inputImagem" id="inputImagem">
+                <a href="javascript:;" class="btn btn-primary btn-upload-imagem"><i class="fas fa-upload"></i> Enviar</a>
+                <div id="res_upload_imagem" class="small mt-2"></div>
+              </div>
+          </div>      
+
+          
+        </div>
+      </div>
+
+      <div id="builder" class="mt-4">
+        <div class="toolbar">
+          <a class="carousel">Carousel</a>
+          <a class="image">Imagem</a>
+          <a class="video">Vídeo</a>
+          <a class="text">Texto</a>
+        </div>
+      </div>
+
+      <button type="submit" id="criarUsuario" class="mt-3 btn btn-labeled btn-success">
+        <span class="btn-label"><i class="fas fa-check"></i></span>
+         Salvar notícia
+      </button>
+    </form>
+    <div id="resultado" class="mt-3"></div>
+  </div>
+</div>
+
+
+<script>
+
+  $(document).ready(function () {
+    $('#summernote_autores').summernote({
+      tabsize: 2,
+      height: 100,
+      callbacks: {
+        onKeyup: function(e) {
+          let c = $(this).summernote('code').toString();
+          $('[name="inputAutores"]').html(c.trim());
+        },
+        onChangeCodeview: function(e) {
+          let c = $(this).summernote('code').toString();
+          $('[name="inputAutores"]').html(c.trim());
+        }
+      }
+    });
+
+    $('#builder').pageBuilder({
+      form: $('#form_noticia'),
+      //old_obj: json
+    });
+
+    $('.btn-upload-banner').click(function () {
+      $('#inputBanner').click();
+    });
+
+    $('.btn-upload-imagem').click(function () {
+      $('#inputImagem').click();
+    });
+
+    $('#inputImagem').change(function () {
+      var file = $(this).prop('files')[0];
+      var res = $('#res_upload_imagem');
+      var n_f = file.name;
+      $('#img-thumb-imagem').attr('src', URL.createObjectURL(file));
+      res.addClass('text-success').html(`Arquivo <b>${n_f}</b> será enviado.`);
+    });
+
+    $('#inputBanner').change(function () {
+      var file = $(this).prop('files')[0];
+      var res = $('#res_upload_banner');
+      var n_f = file.name;
+      $('#img-thumb-banner').attr('src', URL.createObjectURL(file));
+      res.addClass('text-success').html(`Arquivo <b>${n_f}</b> será enviado.`);
+    });
+  })
+
+</script>
+
+{{ footer}}

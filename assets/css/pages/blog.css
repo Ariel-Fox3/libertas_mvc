@@ -1,0 +1,122 @@
+.blog-banner{
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-banner h1{
+  color: #fff;
+  font-size: 65px;
+  font-weight: 700;
+}
+
+.lista-blog .noticia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.lista-blog .noticia .img{
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.lista-blog .noticia h5{
+  font-weight: 600;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.lista-blog .noticia:hover .img::before{
+  content: "Ler notícia";
+  width: 100%;
+  height: 100%;
+  background-color: #b6332588;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+}
+
+.lista-blog .pagination .page-item .page-link{
+  color: var(--chumbo);
+  font-weight: 400;
+  padding: 10px 20px;
+  border-color: transparent;
+}
+
+.lista-blog .pagination .page-item .page-link.active{
+  color: var(--bordo);
+  font-weight: 600;
+}
+
+.noticia-interna .img-destaque{
+  height: 520px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+}
+
+.noticia-interna h6{
+  color: var(--bordo);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.noticia-interna h2{
+  color: var(--chumbo);
+  font-weight: 700;
+}
+
+.noticia-interna .btn-voltar-blog{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  color: #fff;
+  background-color: var(--bordo);
+  font-weight: 700;
+  border: 1px solid var(--bordo);
+}
+
+.noticia-interna .btn-voltar-blog:hover{
+  background-color: transparent;
+  color: var(--bordo);
+}
+
+
+.carousel .carousel-item .img {
+  width: 100%;
+  height: 350px;
+  background-position: center;
+  background-size: cover;
+}
+
+.carousel .carousel-indicators {
+  bottom: -100px;
+}
+
+.carousel .carousel-indicators li {
+  width: 50px;
+  height: 50px;
+  background-position: center;
+  background-size: cover;
+}

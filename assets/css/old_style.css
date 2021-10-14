@@ -1,0 +1,133 @@
+/* MISC */
+
+:root{
+  --bordo: #B52325;
+  --cinza: #35374099;
+  --chumbo: #242526;
+  --cinza-border: #ededed;
+}
+
+
+.alert-custom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  box-shadow: 5px 5px 5px rgb(0 0 0 / 30%);
+}
+
+.alert-custom .alert-icon {
+  margin-right: 15px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert-custom.alert-danger {
+  background-color: var(--bordo);
+  border-color: var(--bordo);
+  color: #fff;
+}
+
+.alert-custom.alert-success {
+  background-color: var(--chumbo);
+  border-color: var(--chumbo);
+  color: #fff;
+}
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  color: var(--chumbo);
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+a:hover{
+  text-decoration: none;
+  color: unset;
+}
+
+.txt-bordo{
+  color: var(--bordo)!important;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+}
+
+@media (min-width: 768px) {
+  header{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+header .btn-phone{
+  border-radius: 25px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 16px rgb(0 0 0 / 7%);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+header .btn-phone i{
+  color: var(--bordo);
+}
+
+header .nav-item .nav-link{
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+header .nav-item .nav-link::after{
+  content: none;
+}
+
+header .dropdown-menu .dropdown-item{
+  font-size: 13px;
+}
+
+header .dropdown-menu .dropdown-item:hover{
+  background-color: var(--bordo);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+footer .footer{
+  padding-top: 50px;
+  padding-bottom: 45px;
+  background-color: var(--chumbo);
+  border-bottom: 5px solid var(--bordo);
+  color: var(--cinza-border);
+}
+
+footer .footer h4{
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+footer .footer .representadas a{
+  border: 1px solid var(--cinza-border);
+  border-radius: 40px;
+  color: var(--cinza-border);
+  margin: 3px;
+  padding: 10px 5px;
+}
+
+
+

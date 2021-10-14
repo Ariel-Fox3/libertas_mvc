@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  <title>Libertas</title>
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="{{ assets }}webfonts/Calibri/stylesheet.css" rel="stylesheet"/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://use.typekit.net/pau2pkr.css">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ assets }}node_modules/bootstrap/dist/css/bootstrap.min.css">
+  
+  <!-- PERFECT SCROLLBAR -->
+  <link rel="stylesheet" href="{{ assets }}node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+  
+  <!-- FANCYBOX -->
+  <link rel="stylesheet" href="{{ assets }}css/jquery.fancybox.min.css">
+  
+  <!-- ADOBE FONTS -->
+  <link rel="stylesheet" href="https://use.typekit.net/kph4fqg.css">
+  
+  <!-- ANIMATE -->
+  <link rel="stylesheet" href="{{ assets }}css/animate.min.css">
+  
+  
+  <link rel="stylesheet" href="{{ assets }}node_modules/nouislider/distribute/nouislider.css" >
+  <link rel="stylesheet" href="{{ assets }}css/style.css?<?=date('His');?>">
+  <link rel="stylesheet" href="{{ assets }}css/hover.css">
+  <link rel="stylesheet" href="{{ assets }}css/animate.min.css">
+  <link rel="stylesheet" href="{{ assets }}css/app.css">
+  <link rel="stylesheet" href="{{ assets }}css/jquery.custom-scrollbar.css">
+  <link rel="stylesheet" href="{{ assets }}webfonts/Fontawesome/fontawesome.css">
+  
+  <link rel="shortcut icon" href="favicon.ico" />
+  
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <script type="text/javascript">
+    var onloadCallback = function() {
+      grecaptcha.render('g_recapcha_div', {
+        'sitekey' : '6LeX_zQcAAAAAOaGInhDs1FTaiDtgxy3wJUirEJ4'
+      });
+    };
+  </script>
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  {% if custom_styles is defined %}
+    {% for style in custom_styles %}
+      <link rel="stylesheet" href="{{ assets }}css/{{ style }}.css">
+    {% endfor %}
+  {% endif %}
+
+  {% if custom_scripts is defined %}
+    {% for script in custom_scripts %}
+      <script src="{{ assets }}js/{{ script }}.js"></script>
+    {% endfor %}
+  {% endif %}
+</head>
+<body>
+
+  <header>
+    <div class="container py-lg-2">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="javascript:;">
+          <img src="{{ assets }}img/header/libertas-logo.jpg" alt="Libertas Logo" class="img-fluid">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+        </button>
+  
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul class="navbar-nav ml-lg-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="javascript:;" data-href="quemsomos-info">quem somos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:;" data-href="fazemos">O que fazemos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:;" data-href="libertados">Libertados</a>
+            </li>
+            <li class="nav-item liberte-se">
+              <a class="nav-link" href="javascript:;" data-href="libertese">Liberte-se</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+  

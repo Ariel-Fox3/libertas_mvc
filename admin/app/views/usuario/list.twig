@@ -1,0 +1,141 @@
+<div class="tab-pane" id="usuarios" role="tabpanel">
+  <h4 class="tab-title">{{ text_gerenciar_usuarios }}</h4>
+  
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="deleted" name="deleted" value="1"  {{ deleted == true ? 'checked' : '' }}>
+      <label class="custom-control-label" for="deleted">{{ text_ver_excluidos }}</label>
+    </div>
+    <div class="">
+      <a href="{{ novo }}" class="btn btn-primary">{{ text_novo_usuario }}</a>
+    </div>
+  </div>
+  
+  <table class="table table-striped table-bordered table-hover" id="tabela-mod">
+    <thead>
+      <tr>
+        <th style="width:30%;">{{ text_nome }}</th>
+        <th style="width:30%;" class="d-none d-md-table-cell">{{ text_email }}</th>
+        <th style="width:20%;">{{ text_ultimo_acesso }}</th>
+        <th class="text-center">{{ text_opcoes }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if users %}
+        {% for usuario in users %}
+          <tr>
+            <td class="">
+              {{ usuario.nome }}
+            </td>
+            <td class="d-none d-md-table-cell">{{ usuario.email }}</td>
+            <td>
+              {{ usuario.ultimo_acesso != '0000-00-00 00:00:00' ? usuario.ultimo_acesso|format_datetime(true, 'd/m/Y - ') : 'Nunca acessou' }}
+            </td>
+            <td class="text-center">
+              <a href="{{ alterar }}&id={{ usuario.idusuario }}" class="btn btn-primary" data-toggle="tooltip" title="Alterar usuário">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+              {% if usuario.ativo == '1' %}
+                <a class="btn btn-danger desativaUsuario" href="javascript:;" id="{{ usuario.idusuario }}" data-toggle="tooltip" title="Desativar usuário">
+                  <i class="fas fa-times"></i>
+                </a>
+              {% else %}
+                <a class="btn btn-success desativaUsuario" href="javascript:;" id="{{ usuario.idusuario }}" data-toggle="tooltip" title="Ativar usuário">
+                  <i class="fas fa-check"></i>
+                </a>
+              {% endif %}
+              
+            </td>
+          </tr>
+        {% endfor %}
+      {% endif %}
+    
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+  function events() {    
+    
+  }
+  
+  $('document').ready(function() {
+    
+    var tabela = $('#tabela-mod').DataTable({
+      language: {
+        processing: "Processando...",
+        search: "Buscar&nbsp;:",
+        lengthMenu: "Mostrar _MENU_ itens",
+        info: "Mostrando do item _START_ ao _END_ de _TOTAL_ itens no total",
+        infoEmpty: "Nenhum item para a busca",
+        infoFiltered: "(_MAX_ itens no total)",
+        infoPostFix: "",
+        loadingRecords: "Carregando...",
+        zeroRecords: "Nenhum item para a busca",
+        emptyTable: "Nenhum item para a busca",
+        paginate: {
+          first: "Primeiraf",
+          previous: "Anterior",
+          next: "Próxima",
+          last: "Última"
+        }
+        //aria: {
+        //sortAscending:  ": activer pour trier la colonne par ordre croissant",
+        //sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        //}
+      },
+      initComplete: function () {
+        $('#example_filter').hide();
+      }
+    });
+    tabela.on('draw', function () {
+      events();
+    });
+
+    events();
+
+    $('#deleted').change(function () {
+      if ($(this).prop('checked')) {
+        location.href = beto.addHashUrl(location.href, 'deleted', '1');
+      } else {
+        location.href = beto.delHashUrl(location.href, 'deleted');
+      }
+    });
+
+    $('#multi_unidade').change(function () {
+      if ($(this).prop('checked')) {
+        location.href = beto.addHashUrl(location.href, 'multi_unidade', '1');
+      } else {
+        location.href = beto.delHashUrl(location.href, 'multi_unidade');
+      }
+    });
+
+    $('a.desativaUsuario').click(function() {
+      var del_id = $(this).attr('id');
+      var title = $(this).attr('data-original-title');
+      
+      Swal.fire({
+        title: title,
+        icon: 'question',
+        text: '{{ text_confirm_edit_user }}',
+        showCancelButton: true,
+        confirmButtonText: `{{ text_sim }}`,
+        cancelButtonText: `{{ text_cancel }}`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let url = '{{ desativar }}&id=' + del_id;
+          $.post(url, {}, function (res) {
+            if (res.error === false) {
+              location.reload();
+            } else {
+              Swal.fire('{{ text_erro_edit_user }}', res.msg, 'error');
+            }
+          })
+        }
+      })
+    });
+
+  });
+</script>

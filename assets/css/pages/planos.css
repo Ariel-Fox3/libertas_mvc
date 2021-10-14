@@ -1,0 +1,127 @@
+:root {
+  --cinza: #2a2a2a;
+}
+
+#planos .plano .card {
+  background-color: var(--cinza);
+  border-radius: 15px;
+  transition: .2s ease-in-out;
+  transform: scale(.9);
+  border: 0;
+}
+
+#planos .plano .card.ativo {
+  transform: scale(1);
+  box-shadow: 0px 0px 25px 5px var(--mar);
+}
+
+@media (max-width: 768px) {
+  #planos .plano .card {
+    transform: scale(1);
+    box-shadow: none!important;
+  } 
+}
+
+#planos .plano .card .card-header {
+  background-color: #666666;
+  height: 100px;
+  padding: 15px;
+  text-align: center;
+  filter: drop-shadow(0px 10px 5px rgba(0,0,0,.6));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-top: 1px solid #8e8e8e;
+}
+
+#planos .plano .card .card-header span {
+  color: #e0e0e0;
+  font-weight: 800;
+  font-style: italic;
+  font-family: "Barlow";
+  filter: drop-shadow(2.5px 4.33px 4px rgba(0,0,0,0.58));
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+#planos .plano .card .card-body {
+  background-color: var(--cinza);
+  padding: 15px 20px;
+  border: 5px solid #fff;
+  border-top: 0;
+  border-bottom: 0;
+  margin-bottom: -5px;
+}
+
+#planos .plano .card .card-body hr {
+  border-color: #666666;
+}
+
+#planos .plano .card .card-body .desc {
+  border: 1px solid #666666;
+  border-left: 0;
+  border-right: 0;
+  padding: 15px 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  min-height: 400px;
+}
+
+#planos .plano .card .card-body h5 {
+  color: #e0e0e0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Barlow";
+  text-align: center;
+  font-size: 15px;
+}
+
+#planos .plano .card .card-body ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#planos .plano .card .card-body ul li {
+  color: #e1e1e1;
+  font-weight: 400;
+  font-family: "Barlow";
+  text-align: center;
+  font-size: 15px;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+#planos .plano .card .card-body ul li::before {
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+  color: var(--mar);
+}
+
+#planos .plano .card .card-footer {
+  border: 5px solid #fff;
+  border-top: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#planos .plano .card .card-footer .btn {
+  background-color: var(--mar);
+  color: var(--cinza);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: "Barlow";
+  padding: 10px 30px;
+  border-radius: 10px;
+  box-shadow: 15px 15px 15px rgba(0,0,0,.4);
+}

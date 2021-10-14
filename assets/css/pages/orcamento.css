@@ -1,0 +1,110 @@
+.header-quemsomos{
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding-top: 100px;
+}
+
+.header-quemsomos::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.9);
+  height: 100%;
+}
+
+.header-quemsomos h2{
+  color: #fff;
+  font-weight: 600;
+  font-size: 60px;
+  text-align: center;
+}
+
+@media (max-width: 767px){
+  .header-quemsomos h2{
+    font-size: 30px;
+  }
+}
+
+.orcamento .titulo-bg{
+  width: 100%;
+  font-size: 100px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #f6f6f6;
+  margin-bottom: -60px;
+  text-align: center;
+}
+
+@media (max-width: 767px){
+  .orcamento .titulo-bg{
+    font-size: 30px;
+  }
+}
+
+.orcamento h3{
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  color: var(--chumbo);
+}
+
+
+.orcamento h2{
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  color: var(--chumbo);
+}
+
+.orcamento .formulario h4{
+  font-weight: 700;
+}
+
+.orcamento .formulario h4 span{
+  color: var(--cinza);
+}
+
+.orcamento .formulario .form-control{
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--chumbo);
+  border-bottom: 1px solid #b523252b;
+}
+
+.orcamento .formulario .form-control:focus{
+  box-shadow: 0;
+  border-bottom: 1px solid var(--bordo);
+}
+
+.orcamento .formulario label{
+  color: var(--chumbo);
+  font-size: 15px;
+
+}
+
+.orcamento .formulario label span{
+  color: var(--bordo);
+  margin-right: 4px;
+}
+
+.orcamento .formulario .form-row .col{
+  padding-left: 30px!important;
+  padding-right: 30px!important;
+}
+
+.orcamento .formulario .btn{
+  background-color: var(--bordo);
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 25px;
+  box-shadow: 0px 5px 5px rgba(0,0,0,.4);
+  text-transform: uppercase;
+}

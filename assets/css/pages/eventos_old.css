@@ -1,0 +1,292 @@
+#exclusivos{
+  background-color: #eee;
+  padding-top: 25px;
+  padding-bottom: 35px;
+}
+
+#exclusivos h2{
+  color: black;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#exclusivos h2 span {
+  color: var(--rosa);
+}
+
+/* EXCLUSIVOS */
+
+#exclusivos {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+#exclusivos .card{
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: 0;
+  margin-top: 25px;
+  position: relative;
+}
+
+#exclusivos .card .card-header{
+  border: 0;
+  color: var(--rosa);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding: 10px;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#exclusivos .card .btn_more {
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--mar);
+  box-shadow: 5px 5px 15px rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .2s ease-in-out;
+}
+
+#exclusivos .card .btn_more:hover {
+  bottom: 20px;
+}
+
+#exclusivos .card .btn_more i {
+  color: #fff;
+  font-size: 15px;
+  transition: .5s ease-in-out;
+}
+
+#exclusivos .card .info {
+  position: absolute;
+  bottom: 90px;
+  width: 60%;
+  height: 40%;
+  left: calc(50% - 30%);
+  background-color: rgba(79, 134, 142, 0.9);
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,.5);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  transition: .5s cubic-bezier(.64,.69,.71,1.42);
+  opacity: 0;
+  transform: scale(0);
+}
+
+#exclusivos .card .info.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#exclusivos .card .info h3 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#exclusivos .card .info .item {
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+}
+
+#exclusivos .card .info .item i {
+  padding-right: 15px;
+}
+
+#exclusivos .card .info .item.inscricao {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+#exclusivos .card .info .item.inscricao span {
+  color: var(--ouro);
+  font-weight: 700;
+}
+
+#exclusivos .card .card-body{
+  height: 320px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+
+#exclusivos .btn{
+  background-color: var(--ouro);
+  color: black;
+  border-radius: 2px;
+  border: 1px solid var(--ouro);
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 8px 15px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+#exclusivos .btn:hover{
+  background-color: transparent;
+  color: var(--ouro);
+}
+
+/* EXCLUSIVOS */
+/* EVENTOS */
+
+
+#abertos {
+  background-color: #fff;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+#abertos h2{
+  color: black;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#abertos .card{
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: 0;
+  margin-top: 25px;
+  position: relative;
+}
+
+#abertos .card .card-header{
+  border: 0;
+  color: var(--rosa);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding: 10px;
+}
+
+#abertos .card .btn_more {
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--mar);
+  box-shadow: 5px 5px 15px rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .2s ease-in-out;
+}
+
+#abertos .card .btn_more:hover {
+  bottom: 20px;
+}
+
+#abertos .card .btn_more i {
+  color: #fff;
+  font-size: 15px;
+  transition: .5s ease-in-out;
+}
+
+#abertos .card .info {
+  position: absolute;
+  bottom: 90px;
+  width: 60%;
+  height: 40%;
+  left: calc(50% - 30%);
+  background-color: rgba(79, 134, 142, 0.9);
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,.5);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  transition: .5s cubic-bezier(.64,.69,.71,1.42);
+  opacity: 0;
+  transform: scale(0);
+}
+
+#abertos .card .info.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+#abertos .card .info h3 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#abertos .card .info .item {
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+}
+
+#abertos .card .info .item i {
+  padding-right: 15px;
+}
+
+#abertos .card .info .item.inscricao {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+#abertos .card .info .item.inscricao span {
+  color: var(--ouro);
+  font-weight: 700;
+}
+
+#abertos .card .card-body{
+  height: 320px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+
+#abertos .btn{
+  background-color: var(--ouro);
+  color: black;
+  border-radius: 2px;
+  border: 1px solid var(--ouro);
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 8px 15px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+#abertos .btn:hover{
+  background-color: transparent;
+  color: var(--ouro);
+}
+
+/* EVENTOS */

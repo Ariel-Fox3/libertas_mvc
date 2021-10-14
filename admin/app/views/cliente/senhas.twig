@@ -1,0 +1,314 @@
+{{ header }}
+
+<div class="card" id="card-senhas-cliente">
+  <div class="card-header pt-4">
+    <h5 class="card-title text-center">Gerenciar senhas - <b>{{ cliente.nome }}</b></h5>
+  </div>
+  <div class="card-body">
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#modalAddSenha" data-toggle="modal" class="btn btn-primary">Nova senha</a></li>
+    </ul>
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+      <thead>
+        <tr>
+          <th class="text-center">Tipo</th>
+          <th class="text-center">Usuário</th>
+          <th class="text-center" style="min-width: 200px;">Senha</th>
+          <th class="text-center">Data de cadastro</th>
+          <th class="text-center" style="min-width: 150px">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if senhas is defined %}
+          {% for senha in senhas %}
+            <tr class="gradeU">
+              <td class="text-center">{{ senha.tipo_nome }}</td>
+              <td class="text-center">{{ senha.usuario }}</td>
+              <td class="text-center">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <a href="javascript:;" id="senha-{{ senha.idsenha }}-sh" class="btn btn-dark" onlyAdmin="{{ senha.onlyAdmin == 1 ? 'true' : 'false' }}"><i class="fas fa-eye"></i></a>
+                  </div>
+                  <input type="password" spellcheck="false" readonly="true" class="form-control text-center" id="senha-{{ senha.idsenha }}" value="{{ senha.decrypted }}">
+                </div>
+                <small>{{ senha.comentario }}</small>
+              </td>
+    
+            
+              <td class="text-center">{{ senha.data|format_datetime(true, 'd/m/Y - ') }}</td>
+              <td class="text-center">
+                <a class="btn btn-primary alterar-senha" href="javascript:;" data-id="{{ senha.idsenha }}"><i class="fas fa-pencil-alt"></i></a>
+                <a class="btn btn-danger delSenha" href="javascript:;" id="{{ senha.idsenha }}" name="{{ senha.senha }}" tipo="{{ senha.tipo_nome }}"><i class="fas fa-trash"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal nova senha -->
+<div class="modal fade" id="modalAddSenha" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nova senha de {{ cliente.nome }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form id="formSenha" action="{{ form_nova_senha }}" name="formSenha" method="post" role="form" enctype="multipart/form-data">
+        <input type="hidden" name="idcliente" value="{{ cliente.idcliente }}">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="cliente">Nome do cliente: </label>
+                <select name="cliente" id="cliente" class="bsselect" disabled>
+                  <option value="{{ cliente.idcliente }}" selected>{{ cliente.nome }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="tipoSenha">Tipo de senha: </label>
+                <select name="tipoSenha" id="tipoSenha" class="bsselect">
+                  {% if tipossenhas is defined %}
+                    {% for tipo in tipossenhas %}
+                      <option value="{{ tipo.idtiposenha }}">{{ tipo.nome }}</option>
+                    {% endfor %}
+                  {% endif %}
+                </select>
+              </div>
+            </div>
+          </div>
+    
+          <div class="form-group">
+            <label for="usuario">Nome de usuário: </label>
+            <input type="text" class="form-control btn-outline-default" name="usuario" id="usuario" value="">
+    
+          </div>
+    
+          <div class="row">
+            <div class="col">
+              <label for="tipo">Senha: </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <a class="btn btn-dark text-white ver-senha" ><i class="fas fa-eye"></i></a>
+                  </div>
+                  <input class="form-control" type="password" id="senha" name="senha" required>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <label for="tipo">Repetir a senha: </label>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <a class="btn btn-dark text-white ver-senha"><i class="fas fa-eye"></i></a>
+                  </div>
+                  <input class="form-control" type="password" id="rsenha" name="rsenha" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-danger" id="resultSenha"></div>
+    
+          <div class='form-group' style="margin-top: 10px">
+            <label for="comentario">Descrição: </label>
+            <div class="clearfix" name="comentario">
+              <div class="quill-toolbar">
+                <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-image"></button>
+                  <button class="ql-video"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                </span>
+              </div>
+              <div class="quill-editor"></div>
+            </div>
+          </div>
+    
+          <div class="d-block custom-control custom-switch mb-2">
+            <input type="checkbox" class="custom-control-input" id="chkOnlyAdmin" name="chkOnlyAdmin" value="1" checked>
+            <label class="custom-control-label" for="chkOnlyAdmin">Apenas administrador</label>
+          </div>    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success" id="novaSenha">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{ footer }}
+
+<script>
+
+  $('.alterar-senha').click(function () {
+    var modal = $('#modalAddSenha');
+    let id_senha = $(this).attr('data-id');
+    $.get('{{ url_get_senha }}', {
+      id: id_senha
+    }, function (res) {
+      if (!res.error) {
+        modal.find('.modal-title').text(modal.find('.modal-title').text().replace('Nova', 'Alterar'));
+        modal.find('#tipoSenha').selectpicker('val', res.tipo);
+        modal.find('#usuario').val(res.usuario);
+        modal.find('#senha').val(res.decrypted);
+        modal.find('[data-name="comentario"] .ql-editor').html(res.comentario);
+        modal.find('form').attr('action', '{{ form_edit_senha }}');
+        modal.find('form').prepend(`<input type="hidden" name="idsenha" value="${res.idsenha}">`);
+        if (res.onlyAdmin == 1) {
+          modal.find('#chkOnlyAdmin').prop('checked', true);
+        } else {
+          modal.find('#chkOnlyAdmin').prop('checked', false);
+        }
+        modal.modal('show');
+        modal.on('hidden.bs.modal', function () {
+          modal.find('form').attr('action', '{{ form_nova_senha }}');
+          modal.find('form').find('[name="idsenha"]').remove();
+          modal.find('#usuario').val('');
+          modal.find('#senha').val('');
+          modal.find('#rsenha').val('');
+          modal.find('[data-name="comentario"] .ql-editor').html('');
+          modal.find('#chkOnlyAdmin').prop('checked', false);
+        });
+      }
+    })
+  });
+
+  // nova senha
+  $('#resultSenha').css('display', 'none');
+  $('#senha, #rsenha').on('keyup', function() {
+    var b = $('#novaSenha');
+    if ($('#senha').val() == $('#rsenha').val()) {
+      $('#resultSenha').css('display', 'none');
+      b.removeAttr('disabled');
+    } else {
+      $('#resultSenha').css('display', 'block');
+      $('#resultSenha').html('As senhas não coincidem');
+      b.attr('disabled', 'disabled');
+    }
+  });
+
+
+  $(".ver-senha").click(function() {
+    var i = $(this).attr("id");
+    if ($(this).find('i').attr("class") == "fas fa-eye") {
+      $(this).parent().parent().find('input').attr("type", "text");
+      $(this).find('i').attr("class", "fas fa-eye-slash");
+    } else {
+      $(this).parent().parent().find('input').attr("type", "password");
+      $(this).find('i').attr("class", "fas fa-eye");
+    }
+  });
+
+
+  $("a[id*='sh']").click(function() {
+    var estado = "";
+    var id = $(this).attr("id");
+    var passInput = id.substring(0, id.length - 3);
+    var idsenha = $("#" + passInput)[0].id.split("-")[1];
+
+    if ($(this).attr('onlyadmin') == 'true') {
+      // if (acesso == 'admin') {
+        if ($(this).find('i').hasClass("fa-eye")) {
+          $("#" + passInput).attr("type", "text");
+          // $(this).html($(this).html().replace('open', 'close'));
+          $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+          estado = "visualizada";
+        } else {
+          $("#" + passInput).attr("type", "password");
+          // $(this).html($(this).html().replace('close', 'open'));
+          $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+          estado = "ocultada";
+        }
+    } else {
+      if ($(this).find('i').hasClass("fa-eye")) {
+        $("#" + passInput).attr("type", "text");
+        $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+        estado = "visualizada";
+      } else {
+        $("#" + passInput).attr("type", "password");
+        $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+        estado = "ocultada";
+      }
+
+      $.post('senha/ajax/ajax_ver_senha.php', {
+        idusuario: '<?=$id?>',
+        p: '<?="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"?>',
+        idsenha: id.split("-")[1],
+        status: estado
+      })
+    }
+
+
+  });
+
+  $('.delSenha').click(function() {
+    // var conf = confirm('Você realmente deseja excluir esta senha?');
+    var idsenha = $(this).attr('id');
+
+    Swal.fire({ 
+      title: 'Remover senha', 
+      icon: 'question', 
+      text: 'Você realmente deseja excluir esta senha?', 
+      showCancelButton: true, 
+      confirmButtonText: `Sim`, 
+      cancelButtonText: `Cancelar`, 
+    }).then((result) => { 
+      if (result.isConfirmed) { 
+        $.post('{{ url_excluir_senha }}', {
+          id: idsenha,
+        }, function(res) {
+          if (res.error === false) {
+            location.reload();
+          } else {
+            Swal.fire('Erro ao excluir senha', res.msg, 'error');
+          }
+        });
+      } 
+    }); 
+  });
+</script>

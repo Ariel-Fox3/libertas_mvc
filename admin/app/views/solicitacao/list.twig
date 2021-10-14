@@ -1,0 +1,269 @@
+{{ header }}
+<div class="container-fluid p-0">
+  <div class="card">
+    <div class="card-header">
+      Gerenciar solicitações
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">
+          <label>Filtrar status</label>
+          <select class="form-control" multiple="multiple" name="filtro_status[]">
+            {% if status.status is defined and status.status|length > 0 %}
+              {% for status in status.status %}
+                <option value="{{ status }}">{{ status }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+        <div class="col-6">
+          <label>Filtrar origem</label>
+          <select class="form-control" multiple="multiple" name="filtro_origem[]">
+            {% if solicitacoes is defined %}
+            {% set used = [] %}
+              {% for solicitacao in solicitacoes %}
+                {% if solicitacao.origem not in used %}
+                  <option value="{{ solicitacao.origem }}">{{ solicitacao.origem }}</option>
+                  {% set used = used|merge([solicitacao.origem]) %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+        <div class="col-12 mt-2">
+          <div class="form-group">
+            <label>Buscar</label>
+            <input type="text" class="form-control" id="inputSearch"
+              placeholder="Você pode buscar por qualquer informação da tabela (nome, e-mail, telefone ou data)">
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive mt-3 ">
+        <table id="example" class="display table table-hover table-striped" style="width:100%">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Data</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if solicitacoes is defined %}
+              {% for solicitacao in solicitacoes %}
+                <tr data-status="{{ solicitacao.status }}" data-origem="{{ solicitacao.origem }}">
+                  <td>{{ solicitacao.form.nome_do_responsavel }}</td>
+                  <td>{{ solicitacao.joined|format_datetime(true, 'd/m/Y - ') }}</td>
+                  <td>{{ solicitacao.form.email }}</td>
+                  <td>{{ solicitacao.form.telefone }}</td>
+                  <td class="text-right d-flex justify-content-end align-items-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center mr-2">
+                      {% set color = solicitacao.origem == 'sobre/contato' ? 'badge-secondary' : 'badge-warning' %}
+                      <div class="badge {{ color }} mb-1">{{ solicitacao.origem }}</div>
+                      <div class="badge badge-info">{{ solicitacao.status }}</div>
+                    </div>
+                    <a data-toggle="solicitacao" data-id="{{ solicitacao.idsolicitacao }}" class="btn btn-square btn-dark ml-2">Mais detalhes</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      Atualização automática em 2:00
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalDetalhes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes da solicitação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row">
+          <div class="col">
+            <h4>Sandra Szpoganicz</h4>
+            <h5>[Geração de cadastros] Posts</h5>
+            <div class="badge badge-info mb-3">Facebook</div>
+            <p class="m-0">
+              <i class="fas fa-phone pr-2"></i> <span class="phone">+5547999793117</span>
+            </p>
+            <p>
+              <i class="fas fa-envelope pr-2"></i> <span class="mail">sandraszpo@yahoo.com.br</span>
+            </p>
+          </div>
+        </div>
+        <div class="table-responsive mt-4">
+          <table class="table table-sm table-striped">
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center mt-3">
+          <select class="" name="status">
+            {% if status.status is defined and status.status|length > 0 %}
+              {% for status in status.status %}
+                <option value="{{ status }}">{{ status }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{ footer }}
+
+<script>
+
+  $(document).ready(function () {
+
+    $('select').select2({
+      placeholder: 'Selecione uma opção'
+    });
+
+    // DataTable
+    var table = $('#example').DataTable({
+      language: {
+        processing: "Processando...",
+        search: "Buscar&nbsp;:",
+        lengthMenu: "Mostrar _MENU_ itens",
+        info: "Mostrando do item _START_ ao _END_ de _TOTAL_ itens no total",
+        infoEmpty: "Nenhum item para a busca",
+        infoFiltered: "(_MAX_ itens no total)",
+        infoPostFix: "",
+        loadingRecords: "Carregando...",
+        zeroRecords: "Nenhum item para a busca",
+        emptyTable: "Nenhum item para a busca",
+        paginate: {
+          first: "Primeiraf",
+          previous: "Anterior",
+          next: "Próxima",
+          last: "Última"
+        }
+        //aria: {
+        //sortAscending:  ": activer pour trier la colonne par ordre croissant",
+        //sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        //}
+      },
+      initComplete: function () {
+        $('#example_filter').hide();
+      }
+    });
+
+    $('#inputSearch').keyup(function () {
+      table.search(this.value).draw();
+    })
+
+    $('[name="filtro_status[]"]').change(function () {
+      let status = $(this).val();
+      let items = $('#example').find('tr');
+      for (let i of items) {
+        let stt = $(i).attr('data-status');
+        if (status.length > 0) {
+          if (status.includes(stt)) {
+            $(i).show();
+          } else {
+            $(i).hide();
+          }
+        } else {
+          $(i).show();
+        }
+      }
+      table.draw();
+    });
+
+    $('[name="filtro_origem[]"]').change(function () {
+      let origem = $(this).val();
+      let items = $('#example').find('tr');
+      for (let i of items) {
+        let stt = $(i).attr('data-origem');
+        if (origem.length > 0) {
+          if (origem.includes(stt)) {
+            $(i).show();
+          } else {
+            $(i).hide();
+          }
+        } else {
+          $(i).show();
+        }
+      }
+      table.draw();
+    });
+
+    $('[data-toggle="solicitacao"]').click(function () {
+      let idsolicitacao = $(this).attr('data-id');
+      $.get('{{ url_get_solicitacao }}', {
+        idsolicitacao
+      }, function (res) {
+        if (res.error == false) {
+          let solicitacao = res.msg;
+          var modal = $('#modalDetalhes');
+          modal.find('h4').text(solicitacao.form.nome_completo);
+          modal.find('h5').text(solicitacao.status);
+          modal.find('.badge').text(solicitacao.origem);
+          modal.find('.phone').text(solicitacao.form.telefone);
+          modal.find('.mail').text(solicitacao.form.email);
+          modal.find('select').val(solicitacao.status);
+          modal.find('select').trigger('change');
+
+          let table = modal.find('table tbody');
+          table.html('');
+          $.each(solicitacao.form, function(index,data) {
+            let str = index.split('_');
+            str = str.join(' ');
+            let i = `
+            <tr>
+              <td class="font-weight-bold text-right text-capitalize">${str}</td>
+              <td class="small">${data}</td>
+            </tr>
+            `;
+            table.append(i);
+          });
+
+          modal.modal('show');
+
+          modal.find('[name="status"]').unbind('change');
+          modal.find('[name="status"]').change(function () {
+            let status = $(this).val();
+            Swal.fire({ 
+              title: 'Alterar status', 
+              icon: 'question', 
+              html: 'Você realmente deseja alterar o status da solicitação para <b>' + status + '</b>?', 
+              showCancelButton: true, 
+              confirmButtonText: `Sim`, 
+              cancelButtonText: `Cancelar`, 
+            }).then((result) => { 
+              if (result.isConfirmed) { 
+                $.post('{{ url_alterar_status }}', {
+                  idsolicitacao, 
+                  status
+                }, function (r) {
+                  if (r.error == false) {
+                    location.reload();
+                  } else {
+                    Swal.fire('Erro ao alterar status', r.msg, 'error');
+                  }
+                })
+              } 
+            }); 
+            
+          });
+        }
+      })
+    })
+
+  });
+
+</script>

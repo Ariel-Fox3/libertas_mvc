@@ -1,0 +1,81 @@
+<style>
+  :root{
+    --roxo:#f92330
+  }
+  body,html{
+    margin:0;
+    background-color:#eee
+  }
+  *{
+    font-family:Arial,cursive
+  }
+  .center{
+    text-align:center
+  }
+  .header{
+    width:100%;
+    height:40px;
+    background-color:var(--roxo);
+    margin:0;
+    padding:0;
+    display:flex;
+    justify-content:start;
+    align-items:center
+  }
+  .container{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    min-height:calc(100vh - 40px);
+    display:flex;
+    justify-content:center;
+    background:#fff
+  }
+  .container .inner{
+    padding-top:80px
+  }
+  .container .inner img{
+    margin-bottom:40px;
+    max-width:300px
+  }
+  .container .inner .small{
+    font-size:12px
+  }
+  .container .inner p{
+    line-height:1;
+    margin:5px
+  }
+  .container .inner .holder-btn{
+    margin-top:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center
+  }
+  .container .inner .btn{
+    background-color:var(--roxo);
+    color:#fff;
+    padding:20px 50px;
+    margin-top:50px;
+    transition:.5s ease;
+    text-decoration:none;
+    margin-bottom:10px
+  }
+  .container .inner .btn:hover{
+    background-color:#a69255
+  }
+</style>
+	
+<div class="header"></div>
+
+<div class="container">
+  <div class="inner center">
+    <img src="http://libertasconsultoria.com/assets/img/header/libertas-logo.jpg" />
+    <h1>Nova solicitação de contato!</h1>
+    <p>Você acabou de receber uma solicitação de contato no site Libertas!</p>
+    <p>Nome: {{ nome }}</p> 
+    <p>E-mail: {{ email }}</p> 
+    <p>Telefone: {{ telefone }}</p> 
+    <p>Mensagem: {{ motivos }}</p>      
+  </div>
+</div>

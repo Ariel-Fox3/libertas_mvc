@@ -1,0 +1,1 @@
+[10-Aug-2016 17:48:04 America/Sao_Paulo] PHP Catchable fatal error:  Argument 1 passed to SolicitacaoDAO::save() must be an instance of SolicitacaoVO, null given, called in /home/moinhosf/public_html/intranet/cms/content/solicitacao/ajax/ajax_alt.php on line 22 and defined in /home/moinhosf/public_html/intranet/cms/class/DAO/class.SolicitacaoDAO.php on line 36

@@ -1,0 +1,177 @@
+.header-quemsomos{
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding-top: 100px;
+}
+
+.header-quemsomos::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.9);
+  height: 100%;
+}
+
+.header-quemsomos h2{
+  color: #fff;
+  font-weight: 600;
+  font-size: 60px;
+  text-align: center;
+}
+
+@media (max-width: 767px){
+  .header-quemsomos h2{
+    font-size: 30px;
+  }
+}
+
+
+#accordionRepresentadas h1{
+  font-size: 1.875rem;
+  text-transform: uppercase;
+  color: var(--chumbo);
+  text-align: center;
+}
+
+#accordionRepresentadas .btn-collapse{
+  background-color: var(--bordo);
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Open Sans",sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 0;
+}
+
+#accordionRepresentadas .btn-collapse.collapsed{
+  background-color: var(--cinza);
+}
+
+#accordionRepresentadas .conteudo{
+  background-color: var(--bordo);
+}
+
+#accordionRepresentadas .conteudo h2{
+  font-size: 2.875rem;
+  color: #fff;
+  text-align: center;
+}
+
+@media (max-width: 767px){
+  #accordionRepresentadas .conteudo h2{
+    font-size: 25px!important;
+  }
+}
+
+#accordionRepresentadas .conteudo h3{
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: left;
+  color: #fff;
+  font-size: 40px;
+}
+
+@media (max-width: 767px){
+  #accordionRepresentadas .conteudo h3{
+    font-size: 25px;
+  }
+}
+
+#accordionRepresentadas .conteudo p{
+  font-size: 1rem;
+  color: #fff;
+}
+
+#accordionRepresentadas .conteudo .card{
+  background-color: transparent;
+  border: 0;
+
+}
+
+#accordionRepresentadas .conteudo .card .card-header, #accordionRepresentadas .conteudo .card .card-body{
+  background-color: #fff;
+}
+
+#accordionRepresentadas .conteudo .card .card-header h2 button{
+  color: var(--chumbo);
+  font-weight: 700;
+  font-size: 17px;
+}
+
+#accordionRepresentadas .conteudo .card .card-header h2 button:hover, #accordionRepresentadas .conteudo .card .card-header h2 button:focus{
+  text-decoration: unset;
+  box-shadow: none;
+}
+
+#accordionRepresentadas .conteudo .card .card-body{
+  color: var(--cinza);
+  padding: 25px;
+  text-align: center;
+}
+
+#accordionRepresentadas .conteudo .imagens-hover{
+  position: relative;
+  height: 400px;
+}
+
+#accordionRepresentadas .conteudo .imagens-hover .img{
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 380px;
+  width: 70%;
+  margin: auto;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 9;
+  transition: .4s ease;
+}
+
+#accordionRepresentadas .conteudo .imagens-hover .img.hover{
+  top: 10px;
+  right: 0px;
+  z-index: 4;
+  opacity: .3;
+  background-position: center top;
+}
+
+.cotacao{
+  padding: 35px;
+  background-color: #fff;
+}
+
+.cotacao h5{
+  color: var(--chumbo);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.cotacao h6{
+  color: var(--cinza);
+  font-weight: 600;
+}
+
+.cotacao .btn {
+  background-color: #fff;
+  color: var(--bordo);
+  border-radius: 40px;
+  padding: 15px 25px;
+  box-shadow: 0px 5px 5px rgba(0,0,0,.5);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.cotacao .btn:hover{
+  background-color: var(--bordo);
+  color: #fff;
+}

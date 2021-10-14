@@ -1,0 +1,59 @@
+<div class="row mb-2">
+    <div class="col text-right">
+        <a href="javascript:;" class="btn btn-dark btn-sm btn-access-all"><i class="fas fa-check mr-2"></i> Acessar todos</a>
+        <a href="javascript:;" class="btn btn-primary btn-sm btn-modify-all"><i class="fas fa-check mr-2"></i> Modificar todos</a>
+    </div>
+</div>
+
+<div id="check_permissions" class="table-responsive">
+  <table class="table table-striped table-hover table-sm">
+    <thead>
+      <th></th>
+      <th class="text-center">Acessar</th>
+      <th class="text-center">Modificar</th>
+    </thead>
+    <tbody>
+    {% if user_permissions %}
+      {% for p in user_permissions %}
+        <tr>
+          <td>{{ p.text }}</td>
+          <td class="text-center"><input name="access[]" value="{{ p.text }}" type="checkbox" {{ p.access == true ? 'checked' : '' }}></td>
+          <td class="text-center"><input name="modify[]" value="{{ p.text }}" type="checkbox" {{ p.modify == true ? 'checked' : '' }}></td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+    
+    </tbody>
+  </table>
+</div>
+<script>
+
+  $(document).ready(function () {
+    $(".btn-access-all").click(function () {
+      var p = $("#check_permissions");
+      if ($(this).attr("data-clicked")) {
+        $(this).removeAttr("data-clicked");
+        p.find("[name=\"access[]\"]").prop("checked", false);
+        $(this).find("i").removeClass("fa-times").addClass("fa-check");
+      } else {
+        p.find("[name=\"access[]\"]").prop("checked", true);
+        $(this).attr("data-clicked", true);
+        $(this).find("i").removeClass("fa-check").addClass("fa-times");
+      }
+    });
+
+   $(".btn-modify-all").click(function () {
+    var p = $("#check_permissions");
+    if ($(this).attr("data-clicked")) {
+      $(this).removeAttr("data-clicked");
+      p.find("[name=\"modify[]\"]").prop("checked", false);
+      $(this).find("i").removeClass("fa-times").addClass("fa-check");
+    } else {
+      p.find("[name=\"modify[]\"]").prop("checked", true);
+      $(this).attr("data-clicked", true);
+      $(this).find("i").removeClass("fa-check").addClass("fa-times");
+    }
+  });
+  });
+
+</script>

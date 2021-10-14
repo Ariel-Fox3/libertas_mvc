@@ -1,0 +1,49 @@
+[25-Feb-2021 16:33:03 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[25-Feb-2021 16:33:20 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[25-Feb-2021 16:34:12 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[25-Feb-2021 16:35:59 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[25-Feb-2021 16:41:00 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[01-Mar-2021 14:12:34 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55
+[01-Mar-2021 14:14:26 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php:55
+Stack trace:
+#0 /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php(55): PDO->prepare('SELECT * FROM c...')
+#1 /home2/deisic38/public_html/intranet/cms/class/DAO/class.CategoriaDAO.php(50): Conexao->selectDB('SELECT * FROM c...', NULL, 'CategoriaVO')
+#2 /home2/deisic38/public_html/intranet/cms/content/categoria/ajax/ajax_alt.php(14): CategoriaDAO->getById(NULL)
+#3 {main}
+  thrown in /home2/deisic38/public_html/intranet/cms/class/class.Conexao.php on line 55

@@ -1,0 +1,208 @@
+#eventos {
+  background-color: #000;
+}
+
+#eventos .evento .head {
+  background-color: var(--cinza);
+  height: 150px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#eventos .evento .head  h2 {
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@media (max-width: 767px){
+  #eventos .evento .head h2{
+    font-size: 21px!important;
+  }
+}
+
+#eventos .evento .head  h2 span {
+  color: var(--mar);
+}
+
+#eventos .evento .head::after {
+  position: absolute;
+  content: " ";
+  width: 100%;
+  height: 10px;
+  background-color: var(--mar);
+  bottom: 20px;
+  left: 0;
+}
+
+#eventos .evento .info {
+  max-width: 1000px;
+  margin: 40px auto;
+  color: #fff;
+  font-family: 'Barlow';
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  padding: 0 20px;
+}
+
+#eventos .evento .content {
+  background-color: #000;
+}
+
+#eventos .evento .content .container .row {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#eventos .evento .content .container > .control i {
+  color: var(--cinza)!important;
+}
+
+#eventos .evento .content .container > .control.active i {
+  color: #e1e1e1!important;
+}
+#eventos .evento .content .container > .control.prev {
+  position: absolute;
+  bottom: -30px;
+  right: 50%;
+  left: unset;
+  top: unset;
+}
+
+#eventos .evento .content .container > .control.next {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  top: unset;
+}
+
+#eventos .evento .content .card {
+  background-color: var(--cinza);
+  border-radius: 15px;
+  transition: .2s ease-in-out;
+  transform: scale(.8);
+  border: 0;
+}
+
+#eventos .evento .content .card.ativo {
+  transform: scale(1);
+  box-shadow: 0px 0px 25px 5px var(--mar);
+}
+
+@media (max-width: 768px) {
+  #eventos .evento .content .card {
+    transform: scale(1);
+    box-shadow: none!important;
+  } 
+}
+
+#eventos .evento .content .card .card-header {
+  background-color: #666666;
+  height: 100px;
+  padding: 15px;
+  text-align: center;
+  filter: drop-shadow(0px 10px 5px rgba(0,0,0,.6));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-top: 1px solid #8e8e8e;
+}
+
+#eventos .evento .content .card .card-header span {
+  color: #e0e0e0;
+  font-weight: 800;
+  font-style: italic;
+  font-family: "Barlow";
+  filter: drop-shadow(2.5px 4.33px 4px rgba(0,0,0,0.58));
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+#eventos .evento .content .card .card-body {
+  background-color: var(--cinza);
+  padding: 15px 35px;
+  border: 5px solid #fff;
+  border-top: 0;
+  border-bottom: 0;
+  margin-bottom: -5px;
+}
+
+#eventos .evento .content .card .card-body hr {
+  border-color: #666666;
+}
+
+#eventos .evento .content .card .card-body .desc {
+  border: 1px solid #666666;
+  border-left: 0;
+  border-right: 0;
+  height: 120px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#eventos .evento .content .card .card-body h5 {
+  color: #e0e0e0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Barlow";
+  text-align: center;
+  font-size: 15px;
+}
+
+#eventos .evento .content .card .card-body p {
+  color: #e1e1e1;
+  font-weight: 300;
+  font-family: "Barlow";
+  text-align: center;
+  font-size: 13px;
+  padding: 0 20px;
+  margin: 0px;
+}
+
+#eventos .evento .content .card .card-body .horario img {
+  width: 40px;
+}
+
+#eventos .evento .content .card .card-body .horario li {
+  color: #e0e0e0;
+  font-size: 13px;
+}
+
+#eventos .evento .content .card .card-body .horario li:last-child {
+  margin-left: 20px;
+}
+
+#eventos .evento .content .card .card-body .horario li span {
+  display: block;
+}
+
+#eventos .evento .content .card .card-footer {
+  border: 5px solid #fff;
+  border-top: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#eventos .evento .content .card .card-footer .btn {
+  background-color: var(--mar);
+  color: var(--cinza);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-family: "Barlow";
+  padding: 10px 30px;
+  border-radius: 10px;
+  box-shadow: 15px 15px 15px rgba(0,0,0,.4);
+}

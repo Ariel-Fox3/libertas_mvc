@@ -1,0 +1,920 @@
+{{ header }}
+
+<div class="container-fluid p-0">
+    <div class="row">
+      <div class="col"><h1 class="h3 mb-3">Alterar cliente <b>{{ cliente.nome }}</b></h1></div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-3 col-xl-3">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Configurações</h5>
+          </div>
+    
+          <div class="list-group list-group-flush" role="tablist">
+            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#informacoes" role="tab">Informações</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#contratos" role="tab">Contratos</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" href="#cronograma" role="tab">Cronograma</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-9 col-xl-9">
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="informacoes" role="tabpanel">
+            <form id="formCriarCliente" name="formCadastro" method="post" action="{{ url_form_edit }}" role="form" enctype="multipart/form-data">
+              <input type="hidden" name="idcliente" value="{{ cliente.idcliente }}">
+              <div class="row">
+                <div class="col-6 my-auto">
+                  <h5>Informações do cliente</h5>
+                </div>
+                <div class="col-6 text-right">
+                  <div class="col text-right"><button type="submit" id="btnCriarCliente" class="btn btn-info mb-3">Salvar cliente</button></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="custom-control custom-switch text-center mb-2">
+                        <input type="checkbox" class="custom-control-input"  {{ cliente.responder_cronograma == '1' ? 'checked' : '' }} id="inputResponder_crono" name="inputResponder_crono" value="1">
+                        <label class="custom-control-label" for="inputResponder_crono">Cliente pode responder cronogramas</label>
+                      </div>
+          
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="form-group">
+                            <label for="inputNome">Nome *</label>
+                            <input type="text" id="inputNome" class="form-control btn-outline-default" name="inputNome" required value="{{ cliente.nome }}">
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <label for="inputInstagram"><i class="fab fa-instagram mr-2"></i> Instagram</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">@</span>
+                            </div>
+                            <input type="text" class="form-control" name="inputInstagram" placeholder="Username" value="{{ cliente.instagram }}">
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="inputDoc">Documento (CNPJ/CPF) *</label>
+                            <input type="text" id="inputDocumento" class="form-control btn-outline-default" name="inputDocumento" required value="{{ cliente.documento }}">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="inputRazao">Razão social</label>
+                            <input type="text" id="inputRazao_social" class="form-control btn-outline-default" name="inputRazao_social" value="{{ cliente.razao_social }}">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="inputEmail">E-mail de contato *</label>
+                            <input type="email" id="inputEmail_contato" class="form-control btn-outline-default" name="inputEmail_contato" required value="{{ cliente.email_contato }}" >
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="inputEmail">E-mail financeiro</label>
+                            <input type="email" id="inputEmail_financeiro" class="form-control btn-outline-default" name="inputEmail_financeiro" value="{{ cliente.email_financeiro }}">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="inputCelular">Telefone de contato *</label>
+                            <input type="text" id="inputFone_contato" class="form-control btn-outline-default" name="inputFone_contato" required value="{{ cliente.fone_contato }}">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="inputFixo">Telefone empresarial</label>
+                            <input type="text" id="inputFone_empresarial" class="form-control btn-outline-default" name="inputFone_empresarial" value="{{ cliente.fone_empresarial }}">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="inputCidade">Cidade *</label>
+                            <input type="text" id="inputCidade" class="form-control btn-outline-default" name="inputCidade" required value="{{ cliente.cidade }}">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="inputEstado">Estado (UF) *</label>
+                            <input type="text" id="inputEstado" class="form-control btn-outline-default" name="inputEstado" required value="{{ cliente.uf }}">
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <!-- <label for="inputObs">Observações</label> -->
+                        <!-- <textarea class="form-control btn-outline-default editor-padrao" name="inputObs"></textarea> -->
+                        <label for="inputObs">Observações</label>
+                        <!-- <textarea class="editor-atividades" name="inputObs"></textarea> -->
+                        <div class="clearfix" name="inputObs">
+                          <div class="quill-toolbar">
+                            <span class="ql-formats">
+                              <select class="ql-font"></select>
+                              <select class="ql-size"></select>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-bold"></button>
+                              <button class="ql-italic"></button>
+                              <button class="ql-underline"></button>
+                              <button class="ql-strike"></button>
+                            </span>
+                            <span class="ql-formats">
+                              <select class="ql-color"></select>
+                              <select class="ql-background"></select>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-script" value="sub"></button>
+                              <button class="ql-script" value="super"></button>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-header" value="1"></button>
+                              <button class="ql-header" value="2"></button>
+                              <button class="ql-blockquote"></button>
+                              <button class="ql-code-block"></button>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-list" value="ordered"></button>
+                              <button class="ql-list" value="bullet"></button>
+                              <button class="ql-indent" value="-1"></button>
+                              <button class="ql-indent" value="+1"></button>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-direction" value="rtl"></button>
+                              <select class="ql-align"></select>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-link"></button>
+                              <button class="ql-image"></button>
+                              <button class="ql-video"></button>
+                            </span>
+                            <span class="ql-formats">
+                              <button class="ql-clean"></button>
+                            </span>
+                          </div>
+                          <div class="quill-editor">{{ cliente.obs }}</div>
+                        </div>
+                      </div>
+          
+                      <div class="d-inline-block mr-3 custom-control custom-switch mb-2">
+                        <input type="checkbox" class="custom-control-input" id="inputAtivo" name="inputAtivo" value="1"  {{ cliente.ativo == '1' ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="inputAtivo">Ativo</label>
+                      </div>
+
+                      <!-- <button type="submit" class="btn btn-success" id="enviarProduto">Novo cliente</button> -->
+          
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">Imagem</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="text-center">
+                        <img alt="" src="{{ cliente.imagem }}" class="rounded-circle img-responsive mt-2" width="128" height="128" />
+                        <div class="mt-2">
+                          <input type="file" class="d-none" name="inputImagem" id="inputImagem">
+                          <a href="javascript:;" class="btn btn-primary btn-upload"><i class="fas fa-upload"></i> Enviar</a>
+                        </div>
+                        <small>For best results, use an image at least  128px by 128px in .jpg format</small>
+                      </div>
+                    </div>
+                  </div>
+          
+                  {# <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">Arquivos</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          <a href="javascript:;" class="btn btn-sm btn-primary btn-arquivos">Enviar arquivos</a>
+                          <input type="file" class="d-none" id="inputArquivos" multiple>
+                        </div>
+                        <div class="col-12 mt-2">
+                          <ul class="list-group list-unstyled" id="list-arquivos-cliente">
+                            <li class="list-group-item bg-light" data-toggle="tooltip" title="Arquivo pendente"><i class="fas fa-clock"></i> Nome do arquivo</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div> #}
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="contratos" role="tabpanel">
+            <div class="row">
+              <div class="col-6">
+                <h5>Contratos</h5>
+              </div>
+              <div class="col-6 text-right">
+                
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                  <ul class="list-inline">
+                    <li class="list-inline-item"><a href="javascript:;" data-toggle="modal" data-target="#modalNovoContrato" id="btnNovoContrato" class="btn btn-primary">Novo contrato</a></li>
+                  </ul>
+                <table class="table table-striped table-bordered table-hover" id="tabela-mod">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Nome</th>
+                      <th class="text-center">Data de início</th>
+                      <th class="text-center">Data final</th>
+                      <th class="text-center">Plataforma de agendamento</th>
+                      <th class="text-center"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="listContratos">
+                    {% if contratos %}
+                      {% for contrato in contratos %}
+                        <tr class="gradeU">
+                          <td class="text-center">{{ contrato.nome }}</td>
+                          <td class="text-center">{{ contrato.dti }}</td>
+                          <td class="text-center">{{ contrato.dtf }}</td>
+                          
+                          <td class="text-center">{{ contrato.plataforma_agendamento is defined ? contrato.plataforma_agendamento : '<i class="fas fa-times"></i>' }}</td>
+                          <td class="text-center">
+                            <a href="{{ contrato.edit }}" target="_blank" class="btn btn-primary" data-toggle="tooltip" title="Editar contrato"><i class="fas fa-pencil-alt"></i></a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+                  
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="cronograma" role="tabpanel">
+            <form id="formCronogramas" method="post" action="{{ url_form_cronogramas }}" role="form" enctype="multipart/form-data">
+              <input type="hidden" name="idcliente" value="{{ cliente.idcliente }}">
+              <input type="hidden" name="objEntregas">
+              <div class="row">
+                <div class="col-6 my-auto">
+                  <h5>Cronograma</h5>
+                </div>
+                <div class="col-6 text-right">
+                  <div class="col text-right"><button type="submit" id="btnSalvarCrono" class="btn btn-info mb-3">Salvar cronograma</button></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="selectContrato">Contrato *</label>
+                    <select class="bsselect" name="selectContrato" title="Selecione">
+                      {% if contratos is defined %}
+                        {% for contrato in contratos %}
+                          <option data-contrato-arte="{{ contrato.contrato_arte  == 1 ? '1' : '0' }}" value="{{ contrato.idcontrato }}">{{ contrato.nome }}</option>
+                        {% endfor %}
+                      {% endif %}
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="selectCronograma">Cronograma *</label>
+                    <select class="bsselect" name="selectCronograma" title="Selecione"></select>
+                    <a href="javascript:;" class="d-none" id="btnAlterarUsuarios">Alterar usuários</a>
+                  </div>
+
+                  <div class="cronogramas">
+                    <div class="alert alert-warning" role="alert">
+                      <div class="alert-icon d-flex align-items-center">
+                        <i class="fas fa-times"></i>
+                      </div>
+                      <div class="alert-message">Selecione o contrato e o cronograma.</div>
+                    </div>
+
+                    <div class="form-group d-none">
+                      <div class="row">
+                        <div class="col">
+                          <label>Cronograma</label>
+                          <div class="tab tab-primary">
+                            <ul class="nav nav-tabs" role="tablist">
+                              <li class="nav-item"><a class="nav-link small active" href="#segunda" data-toggle="tab" role="tab" aria-selected="false">Segunda feira</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#terca" data-toggle="tab" role="tab" aria-selected="false">Terça feira</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#quarta" data-toggle="tab" role="tab" aria-selected="true">Quarta feira</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#quinta" data-toggle="tab" role="tab" aria-selected="true">Quinta feira</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#sexta" data-toggle="tab" role="tab" aria-selected="true">Sexta feira</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#sabado" data-toggle="tab" role="tab" aria-selected="true">Sábado</a></li>
+                              <li class="nav-item"><a class="nav-link small" href="#domingo" data-toggle="tab" role="tab" aria-selected="true">Domingo</a></li>
+                            </ul>
+
+
+                            <div class="tab-content p-3">
+                              <div class="tab-pane fade show active" id="segunda" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para segundas feiras</h4>
+                                <div class="list-group listDiaSemana" data-dia="segunda">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="terca" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para terças feiras</h4>
+                                <div class="list-group listDiaSemana" data-dia="terca">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="quarta" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para quartas feiras</h4>
+                                <div class="list-group listDiaSemana" data-dia="quarta">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="quinta" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para quintas feiras</h4>
+                                <div class="list-group listDiaSemana" data-dia="quinta">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="sexta" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para sextas feiras</h4>
+                                <div class="list-group listDiaSemana" data-dia="sexta">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="sabado" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para sabados</h4>
+                                <div class="list-group listDiaSemana" data-dia="sabado">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="domingo" role="tabpanel">
+                                <h4 class="tab-title">Cronograma para domingos</h4>
+                                <div class="list-group listDiaSemana" data-dia="domingo">
+                                  
+                                  <a href="javascript:;" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal add entrega -->
+<div class="modal fade" id="modalAddEntrega" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Adicionar entrega</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="inputNomeEntrega">Nome da entrega</label>
+          <input type="text" class="form-control" name="inputNomeEntrega">
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col" id="colRedacao">
+              <label for="selectUserRedacao">Redação</label>
+              <select class="bsselect" name="selectUserRedacao" required data-live-search="true">
+                {% if usuarios_r is defined %}
+                  {% for usuario in usuarios_r %}
+                    <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                  {% endfor %}
+                {% endif %}
+              </select>
+            </div>
+            <div class="col" id="colArte">
+              <label for="selectUserArte">Arte</label>
+              <select class="bsselect" name="selectUserArte" required data-live-search="true">
+                <optgroup label="Arte">
+                  {% for usuario in usuarios_a %}
+                    <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                  {% endfor %}
+                </optgroup>
+                <optgroup label="Social Mídia">
+                  {% for usuario in usuarios_s %}
+                    <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                  {% endfor %}
+                </optgroup>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnSalvarNovaEntrega">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal novo contrato -->
+<div class="modal fade" id="modalNovoContrato" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Adicionar contrato</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form method="post" action="{{ add_contrato }}" role="form" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="inputNome">Nome *</label>
+                <input type="text" id="inputNome" class="form-control" name="inputNome" required>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="inputCliente">Cliente *</label>
+                <input type="hidden" name="inputCliente" value="{{ cliente.idcliente }}">
+                <select class="bsselect" id="inputCliente" disabled required data-live-search="true" title="Selecione">
+                  {% for s_cliente in clientes %}
+                    <option value="{{ s_cliente.idcliente }}" {{ s_cliente.idcliente == cliente.idcliente ? 'selected' : '' }}>{{ s_cliente.nome }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="inputDesc" class="text-lg">Descrição</label>
+            <div class="clearfix" name="inputDesc">
+              <div class="quill-toolbar">
+                <span class="ql-formats">
+                  <select class="ql-font"></select>
+                  <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-bold"></button>
+                  <button class="ql-italic"></button>
+                  <button class="ql-underline"></button>
+                  <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-color"></select>
+                  <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-script" value="sub"></button>
+                  <button class="ql-script" value="super"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-header" value="1"></button>
+                  <button class="ql-header" value="2"></button>
+                  <button class="ql-blockquote"></button>
+                  <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-list" value="ordered"></button>
+                  <button class="ql-list" value="bullet"></button>
+                  <button class="ql-indent" value="-1"></button>
+                  <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-direction" value="rtl"></button>
+                  <select class="ql-align"></select>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-link"></button>
+                  <button class="ql-image"></button>
+                  <button class="ql-video"></button>
+                </span>
+                <span class="ql-formats">
+                  <button class="ql-clean"></button>
+                </span>
+              </div>
+              <div class="quill-editor"></div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col">
+              <div class="form-group">
+                <label for="inputDti" class="text-lg">Data de início do contrato *</label>
+                <input type="date" id="inputDti" class="form-control" name="inputDti" autocomplete="off" required>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="inputDtf" class="text-lg">Data final do contrato *</label>
+                <input type="date" id="inputDtf" class="form-control" name="inputDtf" autocomplete="off" required>
+              </div>
+            </div>
+
+          </div>
+          
+          <div class="form-group mt-2">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" name="contratoArte" id="contratoArte" value="1">
+              <label class="custom-control-label" for="contratoArte">Contrato inicia na <b>arte</b></label>
+            </div>
+          </div>
+
+          <h4 class="mt-2">Data limite de entrega</h4>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="inputEntrega_redacao" class="text-lg">Redação *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-black-50" id="my-addon"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="number" max="31" min="1" id="inputEntrega_redacao" class="form-control" name="inputEntrega_redacao" autocomplete="off" required>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="inputEntrega_arte" class="text-lg">Arte *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-black-50" id="my-addon"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="number" max="31" min="1" id="inputEntrega_arte" class="form-control" name="inputEntrega_arte" autocomplete="off" required>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="inputEntrega_final" class="text-lg">Final *</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-black-50" id="my-addon"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="number" max="31" min="1" id="inputEntrega_final" class="form-control" name="inputEntrega_final" autocomplete="off" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Plataforma de agendamento</label>
+            <select class="bsselect" name="inputPlataforma">
+              <option value="0">Nenhuma</option>
+              {% for plataforma in plataforma_agendamento %}
+                <option  value="{{ plataforma.idplataforma_agendamento }}">{{ plataforma.nome }}</option>
+              {% endfor %}
+
+            </select>
+          </div>
+
+          <div class="form-group mt-2">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" name="inputSocialMedia" id="inputSocialMedia" value="1">
+              <label class="custom-control-label" for="inputSocialMedia">Contrato de Social Mìdia</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="enviarProduto">Novo contrato</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Change Users -->
+<div class="modal fade" id="modalChangeUsers" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Alterar usuários</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <form id="formChangeUsers" action="{{ url_form_change_user }}" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+        <input type="hidden" name="idcronograma">
+        <div class="modal-body">
+          <p>Selecione abaixo os novos usuários responsáveis pelas entregas. <br>* <small>Apenas as entregas em aberto serão alteradas</small></p>
+          <div class="form-group">
+            <div class="row">
+              <div class="col" id="colRedacao">
+                <label for="changeUserRedacao">Redação</label>
+                <select class="bsselect" name="changeUserRedacao" title="Selecione" required data-live-search="true">
+                  {% if usuarios_r is defined %}
+                    {% for usuario in usuarios_r %}
+                      <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                    {% endfor %}
+                  {% endif %}
+                </select>
+              </div>
+              <div class="col">
+                <label for="changeUserArte">Arte</label>
+                <select class="bsselect" name="changeUserArte" title="Selecione" required data-live-search="true">
+                  <optgroup label="Arte">
+                    {% for usuario in usuarios_a %}
+                      <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                    {% endfor %}
+                  </optgroup>
+                  <optgroup label="Social Mídia">
+                    {% for usuario in usuarios_s %}
+                      <option value="{{ usuario.idusuario }}" data-nome-usuario="{{ usuario.nome }}">{{ usuario.nome }}</option>
+                    {% endfor %}
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btnSalvarAlterarUsuarios">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{{ footer }}
+
+
+<script>
+
+  function updateContratos() {
+    $.get('{{ url_update_contratos }}', {}, function (res) {
+      if (res.length) {
+        let container = $('#listContratos');
+        var select = $('select[name="selectContrato"]');
+        container.html('');
+        for (let contrato of res) {
+          let html = `
+            <tr class="gradeU">
+              <td class="text-center">${ contrato.nome }</td>
+              <td class="text-center">${ contrato.dti }</td>
+              <td class="text-center">${ contrato.dtf }</td>
+              
+              <td class="text-center">${ contrato.plataforma_agendamento ? contrato.plataforma_agendamento : '<i class="fas fa-times"></i>' }</td>
+              <td class="text-center">
+                <a href="${ contrato.edit }" target="_blank" class="btn btn-primary" data-toggle="tooltip" title="Editar contrato"><i class="fas fa-pencil-alt"></i></a>
+              </td>
+            </tr>
+          `;
+          container.append(html);
+
+          var option = `<option data-contrato-arte="${contrato.contrato_arte == true ? '1' : '0'}" value="${contrato.idcontrato}">${contrato.nome}</option>`;
+          select.append(option);
+          $(select).selectpicker('refresh');
+        }
+      }
+    });
+
+  }
+
+  function gerarObjEntregas() {
+    var dias = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+    var arr = [];
+    for (let dia of dias) {
+      var pai_dia = $(`#${dia}`);
+      var s_contrato = $('select[name="selectContrato"]');
+      var contrato = s_contrato.val();
+      var contrato_arte = s_contrato.find('option:selected').attr('data-contrato-arte') == '1' ? true : false;
+      var input_obj = $(`input[name="objEntregas"]`);
+      var listEntregas = $(pai_dia).find(`.listDiaSemana[data-dia="${dia}"]`).find('.list-group-item:not(.btn-add-entrega)');
+      for (let entrega of listEntregas) {
+        var obj = new Object();
+        obj.dia = dia;
+        obj.nome = $(entrega).find('span').text();
+        obj.redacao = $(entrega).attr('data-u-redacao');
+        obj.arte = $(entrega).attr('data-u-arte');
+        arr.push(obj);
+      };
+    }
+
+    input_obj.val(JSON.stringify(arr));
+
+    var btn_principal = $('#btnSalvarCliente');
+    if (arr.length > 0 && contrato == '') {
+      btn_principal.attr('disabled', 'disabled').addClass('disabled');
+      showNotification('warning', 'Selecione um contrato para configurar o cronograma', 'Contrato');
+    } else {
+      btn_principal.removeAttr('disabled').removeClass('disabled');
+    }
+  }
+
+  function events() {
+    $('.btn-add-entrega').click(function () {
+      var contrato_arte = $(this).attr('data-contrato-arte') == '1' ? true : false;
+      var dia = $(this).parent().attr('data-dia');
+      var modal = $('#modalAddEntrega');
+      modal.find('.modal-title').html(`Configurar entrega - ${dia}`);
+
+      modal.modal('show');
+
+      $('#btnSalvarNovaEntrega').unbind();
+
+      $('#btnSalvarNovaEntrega').click(function () {
+        insertEntrega(dia, modal, contrato_arte);
+        modal.modal('hide');
+      });
+    });
+  }
+  
+  function insertEntrega(dia, modal, contrato_arte) {
+    var container_dia = $(`.listDiaSemana[data-dia="${dia}"]`);
+    var nome = $(modal).find('input[name="inputNomeEntrega"]');
+    var u_arte = $(modal).find('select[name="selectUserArte"] option:selected').attr('data-nome-usuario');
+    var id_u_arte = $(modal).find('select[name="selectUserArte"]').val();
+    var u_redacao = $(modal).find('select[name="selectUserRedacao"] option:selected').attr('data-nome-usuario');
+    var id_u_redacao = $(modal).find('select[name="selectUserRedacao"]').val();
+    let txt_entrega = `<b>Redação:</b> ${u_redacao}<b class="pl-3">Arte:</b> ${u_arte}`;
+    let attr_redacao = `data-u-redacao="${id_u_redacao}"`;
+
+    var html = `<a href="javascript:;" class="list-group-item list-group-item-action" data-u-arte="${id_u_arte}" ${attr_redacao}><span>${nome.val()}</span><br><small>${txt_entrega}</small></a>`;
+    container_dia.find('.btn-add-entrega').before(html);
+    gerarObjEntregas();
+    nome.val('');
+  }
+  
+  $(document).ready(function() {
+
+    $('#btnAlterarUsuarios').click(function () {
+      var idcronograma = $(this).attr('data-id');
+      var contrato_arte = $(this).attr('data-contrato-arte') == '1' ? true : false;
+      var modal = $('#modalChangeUsers');
+      modal.find('input[name="idcronograma"]').val(idcronograma);
+      modal.modal('show');
+    });
+
+
+    $('select[name="selectContrato"]').change(function () {
+      $('.listDiaSemana .list-group-item:not(.btn-add-entrega)').remove();
+      var select = $('select[name="selectCronograma"]');
+      select.html('');
+      let idcontrato = $(this).val();
+      $.get('{{ url_get_cronogramas }}', {
+        id: idcontrato
+      }, function (res) {
+        if (res.length) {
+          for (let crono of res) {
+            var option = `<option value="${crono.idcronograma}">Cronograma gerado em ${crono.joined}</option>`;
+            select.append(option);
+          }
+        }
+        select.append(`<option value="novo">Criar novo cronograma</option>`);
+        $(select).selectpicker('refresh');
+      });
+    });
+
+    $('select[name="selectCronograma"]').change(function () {
+      let idcronograma = $(this).val();
+      $('.cronogramas .alert').hide();
+      $('.cronogramas .form-group').removeClass('d-none');
+
+      let alert_contrato_arte = $('select[name="selectContrato"]').find('option:selected').attr('data-contrato-arte') == '1' ? true : false;
+
+      $.get('{{ url_get_obj }}', {
+        id: idcronograma
+      }, function (obj) {
+        $('.listDiaSemana .list-group-item:not(.btn-add-entrega)').remove();
+        var lists = $('.listDiaSemana');
+        if (obj.length > 0) {
+          Swal.fire('Cronograma já configurado', 'Este cronograma já foi configurado, se você alterá-lo, apenas as entregas não finalizadas sofrerão alterações.', 'warning')
+          $('#btnAlterarUsuarios').removeClass('d-none').attr('data-id', idcronograma).attr('data-contrato-arte', alert_contrato_arte == true ? '1' : '0');
+        } else {
+          $('#btnAlterarUsuarios').addClass('d-none').removeAttr('data-id').removeAttr('data-contrato-arte');
+        }
+        for (let inner of lists) {
+          $(inner).html(`<a href="javascript:;" data-contrato-arte="${alert_contrato_arte == true ? '1' : '0'}" class="list-group-item list-group-item-action text-center btn-add-entrega"><i class="fas fa-plus-circle"></i> Adicionar novo</a>`);
+        }
+
+        events();
+        
+        for (let i=0; i<obj.length; i++) {
+          let entrega = obj[i];
+          var dia = entrega.dia;
+          var container_dia = $(`.listDiaSemana[data-dia="${dia}"]`);
+          var nome = entrega.nome;
+          var u_arte = entrega.arte;
+          var id_u_arte = entrega.id_arte;
+          var u_redacao = entrega.redacao;
+          var id_u_redacao = entrega.id_redacao;
+          let txt_entrega = `<b>Redação:</b> ${u_redacao.nome}<b class="pl-3">Arte:</b> ${u_arte.nome}`;
+          let attr_redacao = `data-u-redacao="${id_u_redacao}"`;
+
+          var html = `<a href="javascript:;" class="list-group-item list-group-item-action" data-u-arte="${id_u_arte}" ${attr_redacao}><span>${nome}</span><br><small>${txt_entrega}</small></a>`;
+          container_dia.find('.btn-add-entrega').before(html);
+          if (alert_contrato_arte == true) {
+            $('[name="contrato_arte"]').val('1');
+          } else {
+            $('[name="contrato_arte"]').val('0');
+          }
+          gerarObjEntregas();
+        }
+      });
+    });
+
+    $("#inputEntrega_redacao, #inputEntrega_arte, #inputEntrega_final").mask("99");
+
+    var f = $("#modalNovoContrato form");
+    var b = f.find("[type=\"submit\"]");
+    $(b).click(function () {
+      f.ajaxForm({
+        beforeSend: function() {
+          // b.attr("disabled", "disabled");
+        },
+        success: function(e) {
+          if (e.type == 'success') {
+            updateContratos();
+            $('#modalNovoContrato').modal('hide');
+            beto.notify('success', e.title, e.text);
+          } else {
+            Swal.fire('Erro ao editar usuário', e, 'error');
+          }
+        },
+        error: function(e) {
+          b.removeAttr("disabled");
+          confirmar("danger", "Erro ao criar o cliente", e, null, null, null, null);
+        }
+      });
+    });
+
+    $('#modalNovoContrato').on('hide.bs.modal', function () {
+      updateContratos();
+    });
+
+    $(".btn-upload").click(function () {
+      $("#inputImagem").click();
+    });
+
+    $("#inputImagem").change(function () {
+      let n = $(this).prop("files");
+      let f = n[0];
+      $(".btn-upload").removeClass("btn-primary").addClass("btn-success").attr("disabled", true).html("<i class=\"fas fa-check\"></i> Enviado");
+      $(this).parent().next().text(f.name)
+    });
+
+    var formatFone = function (val) {
+      return val.replace(/\D/g, "").length === 11 ? "(00) 0 0000-0000" : "(00) 0000-00009";
+    },
+    foneOptions = {
+      onKeyPress: function(val, e, field, options) {
+          field.mask(formatFone.apply({}, arguments), options);
+        }
+    };
+    
+    var formatDoc = function (val) {
+      return val.replace(/\D/g, "").length > 11 ? "00.000.000/0000-00" : "000.000.000-00999";
+    },
+    docOptions = {
+      onKeyPress: function(val, e, field, options) {
+          field.mask(formatDoc.apply({}, arguments), options);
+        }
+    };
+
+    $("#inputFone_contato").mask(formatFone, foneOptions);
+    $("#inputFone_empresarial").mask(formatFone, foneOptions);
+    $("#inputDocumento").mask(formatDoc, docOptions);  
+
+  });
+
+</script>

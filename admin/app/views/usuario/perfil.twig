@@ -1,0 +1,274 @@
+{{ header }}
+
+
+<div class="container-fluid p-0">
+
+  <h1 class="h3 mb-3">{{ user_info.nome }}</h1>
+
+  <div class="row">
+    <div class="col-md-4 col-xl-4">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Detalhes</h5>
+        </div>
+        <div class="card-body text-center">
+            <a href="{{ user_info.imagem }}" data-fancybox="Avatar">
+             <img alt="" src="{{ user_info.imagem }}" class="rounded-circle img-responsive mt-2" width="128" height="128" />
+            </a>
+          <h5 class="card-title mt-2 mb-2">{{ user_info.nome }}</h5>
+          <!-- <div class="text-muted mb-2">Lead Developer</div> -->
+          <!-- <a class="btn btn-primary btn-sm" href="#">Follow</a> -->
+            <div>
+              <a class="btn btn-primary btn-square hvr-grow" href="javascript:;" data-toggle="modal" data-target="#modalAlterarFoto"><span data-feather="image"></span> Alterar foto</a>
+              <a class="btn btn-dark btn-square hvr-grow" href="javascript:;" data-toggle="modal" data-target="#modalAlterarSenha"><span data-feather="lock"></span> Alterar senha</a>
+            </div>
+        </div>
+        <hr class="my-0" />
+        <div class="card-body">
+          <h5 class="h6 card-title">Sobre</h5>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-1"><span data-feather="mail" class="feather-sm mr-1"></span> Email: <a
+                href="#">{{ user_info.email }}</a></li>
+            <li class="mb-1"><span data-feather="clock" class="feather-sm mr-1"></span> Último acesso:
+              <?=$usuario->getUltima_atividade() ? formatData($usuario->getUltima_atividade()).' <small>('.timeAgo($usuario->getUltima_atividade()).' )</small>' : "-"?>
+            </li>
+            <?php if ($usuario->getIdcliente() != null) { ?>
+            <li class="mb-1"><span data-feather="heart" class="feather-sm mr-1"></span> Cliente: <a
+                href="#"><?=$clienteDAO->getById($usuario->getIdcliente())->getNome()?></a></li>
+            <?php } ?>
+            
+            <li class="mb-1"><span data-feather="activity" class="feather-sm mr-1"></span> Tarefas criadas: x</li>
+            <li class="mb-1"><span data-feather="user-check" class="feather-sm mr-1"></span> Tarefas participando: 
+            </li>
+          </ul>
+        </div>
+        <hr class="my-0" />
+      </div>
+    </div>
+
+    <div class="col-md-8 col-xl-8">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-actions float-right">
+            <div class="dropdown show">
+              <a href="#" data-toggle="dropdown" data-display="static">
+                <i class="align-middle" data-feather="more-horizontal"></i>
+              </a>
+
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+          <h5 class="card-title mb-0">Atividades <small>(10)</small></h5>
+        </div>
+        <div class="card-body h-100">
+
+          <div id="listAtividades"></div>
+
+          <!-- <a href="#" class="btn btn-primary btn-block">Load more</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalAlterarFoto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alterar foto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form id="formAlterarFoto" action="usuario/ajax/ajax_alt_foto.php" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+          <input type="hidden" name="p" id="p" value="<?="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"?>">
+          <input type="hidden" name="idusuario_alteracao" id="idusuario_alteracao" value="<?=$id?>">
+          <input type="hidden" name='idusuario' value="<?=$id?>">
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="input-group mb-1">
+                <input type="text" class="form-control" id="str-arquivo" placeholder="Procurar arquivo" readonly>
+                <div class="input-group-append">
+                  <a class="btn btn-info text-white" id="btn-arquivo" type="button">Procurar</a>
+                </div>
+              </div>
+              <input type="file" id="inputImagem" name="inputImagem" class="d-none">
+              <p class="help-block small">Selecione o arquivo (.jpg, .jpeg, .png, .gif).</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="btn_salvar_foto">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalAlterarSenha" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alterar senha</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form id="formAlterarSenha" action="usuario/ajax/ajax_alt_senha.php" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+          <input type="hidden" name="p" id="p" value="<?="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"?>">
+          <input type="hidden" name="idusuario_alteracao" id="idusuario_alteracao" value="<?=$id?>">
+          <input type="hidden" name='idusuario' value="<?=$id?>">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="inputSenha">Senha </label>
+                  <div class="input-group">
+                    <input class="form-control" type="password" name="inputSenha" id="inputSenha" placeholder="Senha">
+                    <div class="input-group-append">
+                      <a class="btn btn-dark text-white btn-ver-senha"><i class="fas fa-eye"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="inputSenha2">Repita senha </label>
+                  <div class="input-group">
+                    <input class="form-control" type="password" name="inputSenha2" id="inputSenha2" placeholder="Repetir senha" onkeyup="validaSenha(this)">
+                    <div class="input-group-append">
+                      <a class="btn btn-dark text-white btn-ver-senha"><i class="fas fa-eye"></i></a>
+                    </div>
+                  </div>
+                  <p class="help-block small"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="btn_salvar_senha">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  function validaSenha(input) {
+    let s = document.getElementById('inputSenha');
+    if (input.value != s.value) {
+      $('.help-block').text('As duas senhas não coincidem.').css('color', 'red');
+      input.setCustomValidity('As duas senhas não coincidem');
+      $(input).addClass('is-invalid');
+      $(s).addClass('is-invalid');
+    } else {
+      $('.help-block').text('');
+      input.setCustomValidity('');
+      $(input).removeClass('is-invalid');
+      $(s).removeClass('is-invalid');
+    }
+  }
+
+  function loadLogs() {
+    var container = $('#listAtividades');
+    container.html('');
+    $.post('post/ajax_get_log.php', {
+      max: 10,
+      today: 'false', 
+      idu: parseInt('<?=$idusuario?>')
+    }, function (res) {
+      var obj = JSON.parse(res.trim());
+      if (obj.length > 0) {
+        for (let log of obj) {
+          var html = `<div class="media">
+            <img src="${log.imagem_user}" width="36" height="36" class="rounded-circle mr-2">
+            <div class="media-body">
+              <small class="float-right text-navy">${log.time_ago}</small>
+              ${log.legenda} <br/>
+              <small class="text-muted">${log.data}</small><br />
+            </div>
+          </div>
+          <hr />`;
+          container.append(html);
+        }
+      }
+    });
+  }
+
+  $(document).ready(function() {
+
+    loadLogs();
+
+    var f1 = $('#formAlterarFoto');
+    var b1 = $('#btn_salvar_foto');
+
+    b1.click(function() {
+      f1.ajaxForm({
+        beforeSend: function() {
+          b1.attr('disabled', 'disabled');
+        },
+        success: function(e) {
+          b1.removeAttr('disabled');
+          if (e == '') {
+            $.cookie('pendent_notify', 'alterar-foto');
+            location.reload();
+          } else {
+            confirmar('danger', 'Erro ao alterar imagem', error, null, null, null, null);
+          }
+        },
+        error: function(e) {
+          b1.removeAttr('disabled');
+          confirmar('danger', 'Erro ao alterar imagem', e, null, null, null, null);
+        }
+      });
+    });
+
+    var f2 = $('#formAlterarSenha');
+    var b2 = $('#btn_salvar_senha');
+
+    b2.click(function() {
+      f2.ajaxForm({
+        beforeSend: function() {
+          b2.attr('disabled', 'disabled');
+        },
+        success: function(e) {
+          b2.removeAttr('disabled');
+          if (e == '') {
+            location.href = '<?=getUrl().'logoff.php'?>';
+          } else {
+            confirmar('danger', 'Erro ao alterar senha', error, null, null, null, null);
+          }
+        },
+        error: function(e) {
+          b2.removeAttr('disabled');
+          confirmar('danger', 'Erro ao alterar senha', e, null, null, null, null);
+        }
+      });
+    });
+
+    $('#btn-arquivo').click(function () {
+      $('#inputImagem').click();
+    });
+
+    $('#inputImagem').change(function () {
+      var file = $(this).prop('files')[0];
+      console.log(file);
+      var res = $('#str-arquivo');
+      var n_f = file.name;
+      res.val(n_f);
+    });
+
+  });
+</script>
+
+{{ footer }}

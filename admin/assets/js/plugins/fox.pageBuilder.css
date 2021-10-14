@@ -1,0 +1,132 @@
+#builder {
+  width: 100%;
+  border: 1px solid #888;
+  background-color: #eee;
+}
+
+#builder .toolbar {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid #888;
+}
+
+#builder .toolbar a {
+  background-color: #56aac3;
+  color: #fff;
+  padding: 10px;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+#builder .page {
+  box-shadow: inset 0 8px 10px -6px rgba(0,0,0,.2);
+  min-height: 300px;
+  background: #fff;
+  padding: 20px;
+}
+
+#builder .page .element {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 20px;
+  border: 1px dashed #888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .2s ease-in-out;
+  position: relative;
+}
+
+#builder .page .element.focused {
+  border-style: solid;
+  border-width: 2px;
+}
+
+#builder .page .element .btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #888;
+  color: #fff;
+  width: 100px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#builder .page .element .btn a {
+  transition: .2s ease-in-out;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#builder .page .element .btn a.cor:hover {
+  background: var(--verde-escuro);
+}
+
+#builder .page .element .btn a.remove:hover {
+  background: var(--danger);
+}
+
+#builder .page .element .btn a.edit:hover {
+  background: var(--warning);
+}
+
+#builder .page .element .btn a.move:hover {
+  background: var(--info);
+}
+
+#builder .page .element[data-empty="false"] {
+  padding: 20px 100px;
+}
+
+#builder .page .element[data-empty="true"]::after {
+  font-family: 'Font Awesome 5 Pro';
+  font-weight: 900;
+  font-size: 50px;
+  color: #888;
+}
+
+#builder .page .element.color-1 {
+  background: var(--verde-escuro);
+  color: #fff;
+}
+
+#builder .page .element.color-2 {
+  background: var(--ouro);
+  color: #fff;
+}
+
+#builder .page .element[data-type="carousel"][data-empty="true"]::after {
+  content: "\f302";
+}
+
+#builder .page .element[data-type="carousel"][data-empty="false"] {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+#builder .page .element[data-type="carousel"][data-empty="false"] img {
+  border: 2px solid var(--ouro);
+  margin-right: 15px;
+  padding: 30px;
+}
+
+
+#builder .page .element[data-type="text"][data-empty="true"]::after {
+  content: "\f893";
+}
+
+#builder .page .element[data-type="image"][data-empty="true"]::after {
+  content: "\f03e";
+}
+
+#builder .page .element[data-type="video"][data-empty="true"]::after {
+  content: "\f03d";
+}

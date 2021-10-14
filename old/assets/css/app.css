@@ -1,0 +1,70 @@
+
+/* ROW INFINITA */
+
+.infinite-el {
+  position: relative;
+}
+
+.infinite-el .infinite-row {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.infinite-el .control {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #dbdbdb!important;
+  position: absolute;
+  top: calc(50% - 20px);
+}
+
+.infinite-el .control i {
+  color: #dbdbdb!important;
+}
+
+.infinite-el .control.active, 
+.infinite-el .control.active i {
+  color: #4d4d4d!important;
+}
+
+.infinite-el .control:hover {
+  text-decoration: none;
+}
+
+.infinite-el .control.prev {
+  left: -50px;
+}
+
+.infinite-el .control.next {
+  right: -50px;
+}
+
+.infinite-el .control i {
+  font-size: 30px;
+}
+
+@media (max-width: 768px) {
+  .infinite-el .control {
+    z-index: 999;
+  }
+
+  .infinite-el .control.prev {
+    left: 0px;
+  }
+  
+  .infinite-el .control.next {
+    right: 0px;
+  }
+
+  .infinite-el .infinite-row {
+    overflow-x: scroll;
+    position: relative;
+  }
+}
+
+/* ROW INFINITA */

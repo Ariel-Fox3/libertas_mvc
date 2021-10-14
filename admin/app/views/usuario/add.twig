@@ -1,0 +1,147 @@
+{{ header }}
+<div class="container-fluid p-0">
+
+  <form id="formCriarUsuario" name="formCadastro" method="post" role="form" enctype="multipart/form-data">
+    <div class="row">
+
+      <div class="col-6">
+        <h1 class="h3 mb-3">{{ text_novo_usuario }}</h1>
+      </div>
+      <div class="col-6 text-right">
+        <button type="submit" class="btn btn-lg btn-info mb-3">{{ text_save_usuario }}</button>
+      </div>
+
+      <div class="col-12 col-md-3 col-xl-3">
+
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title mb-0">{{ text_configs }}</h5>
+          </div>
+
+          <div class="list-group list-group-flush" role="tablist">
+            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">{{ text_infos }}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-9 col-xl-9">
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="account" role="tabpanel">
+
+            <div class="card">
+              <div class="card-header pt-4">
+                <h5 class="card-title text-center">{{ text_info_user }}</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="inputNome">{{ text_nome_completo }} *</label>
+                      <input type="text" class="form-control form-control-lg" name="inputNome" id="inputNome" required>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="inputUsuario">{{ text_email }} *</label>
+                          <input type="text" class="form-control btn-outline-default" name="inputEmail" id="inputEmail" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="inputSenha">{{ text_senha }} </label>
+                          <div class="input-group">
+                            <input class="form-control" type="password" name="inputSenha" id="inputSenha" placeholder="{{ text_senha }}">
+                            <div class="input-group-append">
+                              <a class="btn btn-dark text-white btn-ver-senha"><i class="fas fa-eye"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-group">
+                          <label for="inputSenha2">{{ text_repetir_senha}} </label>
+                          <div class="input-group">
+                            <input class="form-control" type="password" name="inputSenha2" id="inputSenha2" placeholder="{{ text_repetir_senha }}" onkeyup="validaSenha(this)">
+                            <div class="input-group-append">
+                              <a class="btn btn-dark text-white btn-ver-senha"><i class="fas fa-eye"></i></a>
+                            </div>
+                          </div>
+                          <p class="help-block mt-2"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="inputAtivo" name="inputAtivo" value="1">
+                    <label class="custom-control-label" for="inputAtivo">{{ text_ativo }}</label>
+                  </div>
+  
+                  <div class="custom-control custom-switch ml-3">
+                    <input type="checkbox" class="custom-control-input" id="inputAdmin" name="inputAdmin" value="1">
+                    <label class="custom-control-label" for="inputAdmin">{{ text_admin }}</label>
+                  </div>
+                </div>
+                <!-- <button type="submit" class="btn btn-success" id="criarUsuario">Novo usuário</button> -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+{{ footer }}
+
+<script>
+
+  function validaSenha(input) {
+    let s = document.getElementById('inputSenha');
+    if (input.value != s.value) {
+      $('.help-block').text('{{ text_senhas_diferentes }}.').css('color', 'red');
+      input.setCustomValidity('{{ text_senhas_diferentes }}');
+      $(input).addClass('is-invalid');
+      $(s).addClass('is-invalid');
+    } else {
+      $('.help-block').text('');
+      input.setCustomValidity('');
+      $(input).removeClass('is-invalid');
+      $(s).removeClass('is-invalid');
+    }
+  }
+
+  $(document).ready(function() {
+
+    $('#alterarSenha').change(function () {
+      if ($(this).prop('checked')) {
+        $('#inputSenha').removeAttr('disabled');
+        $('#inputSenha2').removeAttr('disabled');
+      } else {
+        $('#inputSenha').attr('disabled', true);
+        $('#inputSenha2').attr('disabled', true);
+      }
+      $('#inputSenha').val('').removeClass('is-invalid');
+      $('#inputSenha2').val('').removeClass('is-invalid');
+      $('.help-block').text('');
+    })
+
+    $('.btn-ver-senha').click(function() {
+      let el = $(this);
+      let i = el.parent().parent().find('input');
+      if (i.attr('type') == 'password') {
+        i.attr('type', 'text');
+      } else {
+        i.attr('type', 'password');
+      }
+
+    });
+
+  });
+</script>

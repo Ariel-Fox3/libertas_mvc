@@ -1,0 +1,148 @@
+#noticia .img{
+  margin-top: 50px;
+  margin-bottom: 20px;
+  height: 450px;
+  width: 100%;
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#noticia h2 {
+  text-transform: uppercase;
+}
+
+#noticia h5{
+  color: var(--rosa);
+  font-style: italic;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#noticia .autor {
+  font-size: 17px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+#noticia .autor small {
+  font-size: 9px;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+
+#noticia .txt{
+  text-align: justify;
+  padding-top: 15px;
+}
+
+/* NOTICIAS */
+
+#mais {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+#mais h2{
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+#mais h3 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+#mais h3::after{
+  content: "";
+  position: absolute;
+  height: 5px;
+  width: 120px;
+  background-color: var(--rosa);
+  bottom: -5px;
+  left: calc(50% - 60px);
+}
+
+#mais .img{
+  height: 180px;
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  position: relative;
+  transition: .4s ease;
+}
+
+#mais .img::before{
+  content: "Ver mais";
+  height: 0;
+  width: 100%;
+  background-color: var(--rosa-png);
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1px;
+  font-weight: 600;
+}
+
+
+#mais .img:hover::before{
+  content: "ler mais";
+  color: #fff;
+  height: 180px;
+  width: 100%;
+  position: absolute;
+  background-color: var(--rosa-png);
+  margin-top: 0;
+  transition: .4s ease;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#mais h6{
+  margin-top: 5px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+#mais span{
+  color: var(--rosa);
+}
+
+#mais p{
+  padding-top: 20px;
+}
+
+#mais .btn{
+  margin-top: 45px;
+  border: 1px solid #28282899;
+  color: #28282899;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+  background-color: #fff;
+  text-transform: uppercase;
+}
+
+#mais .btn:hover{
+  background-color: #28282899;
+  color: #fff;
+}
+
+/* NOTICIAS */

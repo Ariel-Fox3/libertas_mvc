@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Besom 2';
+    src: url('Besom.woff2') format('woff2'),
+        url('Besom.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
