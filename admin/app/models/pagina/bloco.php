@@ -15,35 +15,6 @@ class ModelPaginaBloco extends BaseModel{
       return $this->db->query($q)->row;
     }
 
-    public function getByIdpagina($idpagina) {
-      $q = sprintf('SELECT * FROM bloco_pagina AS b LEFT JOIN arquivo AS a ON (b.idbloco_pagina = a.idbloco) WHERE b.idpagina = %s ORDER BY b.idbloco_pagina, a.ordem ASC', (int)$idpagina, (int)$idpagina);
-      $ret = $this->db->query($q)->rows;
-
-      $blocos = array();
-
-      if (sizeof($ret) > 0) {
-        foreach($ret as $row) {
-          $p = array();
-          $a = array();
-          $switch = 'p';
-          foreach ($row as $key => $value) {
-            if ($key == 'idarquivo') $switch = 'a';
-            $$switch[$key] = $value; 
-          }
-
-          if (!isset($blocos[$p['chave']])) {
-            $blocos[$p['chave']] = $p;
-            $blocos[$p['chave']]['arquivos'] = array();
-          }
-
-          if ($a['idarquivo'] !== null && $a['idproduto'] == null) $blocos[$p['chave']]['arquivos'][$a['nome']] = $a;
-          
-        }
-      }
-
-      return $blocos;
-    }
-
     public function getByChave($chave) {
       $w = array();
       $w[] = "chave = '$chave'";

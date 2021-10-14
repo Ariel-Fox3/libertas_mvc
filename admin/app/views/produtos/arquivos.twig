@@ -45,7 +45,7 @@
             <a class="btn btn-info text-white" id="btn-arquivo" type="button">Procurar</a>
           </div>
         </div>
-        <input type="file" id="inputImagem" name="inputImagem" class="d-none">
+        <input type="file" id="inputImagem" name="inputImagem[]" multiple class="d-none">
         <p class="help-block">Selecione o arquivo (.jpg, .jpeg, .png, .gif).</p>
       </div>
       <button type="submit" id="enviarProduto" class="btn btn-labeled btn-success">
@@ -94,13 +94,41 @@
 <script>
 
   $(document).ready(function() {
+
+    var order_arquivos = dragula([document.getElementById('tabela-arquivos')], {
+      direction: 'vertical'
+    });
+
+    order_arquivos.on('drop', function (el, target, source, sibling) {
+      var container = target;
+      var items = $(container).find('.hover');
+      var count = [];
+      $(items).each(function () {
+        count.push($(this).attr('data-id'));
+      });
+      
+      $.post('{{ url_order }}', {
+        str: count.join(',')
+      }, function (res) {
+        if (res.error == false) {
+          beto.notify('success', 'Alterar ordem', 'Ordem dos arquivos alteradas com sucesso');
+        } else {
+          Swal.fire('Erro ao alterar ordem', res.msg, 'error');
+        }
+      });
+    });
   
     $("#str-arquivo, #btn-arquivo").click(function() {
       $("#inputImagem").click();
     });
   
     $('#inputImagem').change(function() {
-      $('#str-arquivo').val($(this).prop('files')[0].name);
+      let files = $(this).prop('files');
+      let name_files = [];
+      for (let f of files) {
+        name_files.push(f.name);
+      }
+      $('#str-arquivo').val(name_files.join(', '));
     })
 
     $('#summernote_arquivo').summernote({

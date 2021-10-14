@@ -258,7 +258,7 @@ class ControllerNoticiasHome extends BaseController {
       $noticia['obj'] = json_encode($new_obj);
       $noticia = $this->model_noticia_noticia->save($noticia);
 
-      $this->session->data['success'] = array('key' => 'editar_noticia');
+      $this->session->data['success'] = array('key' => 'nova_noticia');
       $this->response->redirect($this->url->link('noticias/home/edit') . '&id=' . $noticia['idnoticia']);
     }
 

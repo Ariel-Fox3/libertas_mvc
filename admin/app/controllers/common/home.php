@@ -12,14 +12,6 @@ class ControllerCommonHome extends BaseController {
 
     $this->document->setTitle('Home');
 
-    $data['pagina'] = $this->func->getPage(4); // ID DA PÁGINA NO ADMIN
-
-        // echo "<pre>";
-        //   print_r($data['pagina']);
-        // echo "</pre>";
-        // exit;
-
-
     $data['user_info'] = $this->session->data['user_info'];
 
     $data['titulo_dashboard'] = sprintf($this->language->get('titulo_dashboard'), $data['user_info']['nome']);

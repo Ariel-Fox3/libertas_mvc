@@ -9,6 +9,16 @@ class ControllerCommonHome extends BaseController {
 
     $this->document->setTitle('Libertas');
 
+    $data['pagina'] = $this->func->getPage(4); // ID DA PÁGINA NO ADMIN
+
+    $data['servicos'] = $this->func->getPage(5); // ID DA PÁGINA NO ADMIN
+
+    // echo "<pre>";
+    //   print_r($data['servicos']['sub']);
+    // echo "</pre>";
+    // exit;
+
+
     if ($this->request->server['REQUEST_METHOD'] == 'POST') {
       if(isset($this->request->post['g-recaptcha-response']) && !empty($this->request->post['g-recaptcha-response'])) {
         $secret = '6LeX_zQcAAAAAKNkrZT05L3j3ZHJGhZkfjSrSjB1';
@@ -73,5 +83,7 @@ class ControllerCommonHome extends BaseController {
 
     
   }
+
+  
   
 }

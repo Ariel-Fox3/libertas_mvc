@@ -50,8 +50,7 @@
                     <a class="btn btn-success removePagina" href="javascript:;" data-id="{{ pagina.idpagina }}"><i class="fas fa-check"></i></a>
                   {% endif %}
                 {% endif %}
-                <a class="btn btn-primary" href="?route=paginas/home/arquivos&id={{ pagina.idpagina }}"><i class="fas fa-paperclip"></i></a>
-                <a class="btn btn-info btn-duplicar" data-id="{{ pagina.idpagina }}"><i class="fas fa-copy"></i></a>
+                <a class="btn btn-primary" href="?route=paginas/home/arquivos&id={{ pagina.idpagina }}"><i class="fas fa-paperclip"></i></i></a>
               </td>
             </tr>
           {% endfor %}
@@ -89,29 +88,6 @@
           Swal.fire('Erro ao alterar ordem', res.msg, 'error');
         }
       });
-    });
-
-    $('.btn-duplicar').click(function () {
-      var idpagina = $(this).attr('data-id');
-      Swal.fire({ 
-        title: 'Duplicar página', 
-        icon: 'question', 
-        text: 'Você realmente deseja duplicar este página?', 
-        showCancelButton: true, 
-        confirmButtonText: `Sim`, 
-        cancelButtonText: `Cancelar`, 
-      }).then((result) => { 
-        if (result.isConfirmed) { 
-          $.post('{{ url_duplicar }}', { idpagina }, function (res) {
-            if (res.error == false) {
-              location.reload();
-            } else {
-              Swal.fire('Erro ao duplicar página', res.msg, 'error');
-            }
-          });
-        } 
-      }); 
-      
     });
 
     $('.removePagina').click(function () {

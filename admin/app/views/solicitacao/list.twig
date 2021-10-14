@@ -19,15 +19,8 @@
         <div class="col-6">
           <label>Filtrar origem</label>
           <select class="form-control" multiple="multiple" name="filtro_origem[]">
-            {% if solicitacoes is defined %}
-            {% set used = [] %}
-              {% for solicitacao in solicitacoes %}
-                {% if solicitacao.origem not in used %}
-                  <option value="{{ solicitacao.origem }}">{{ solicitacao.origem }}</option>
-                  {% set used = used|merge([solicitacao.origem]) %}
-                {% endif %}
-              {% endfor %}
-            {% endif %}
+              <option value="sobre/contato">sobre/contato</option>
+              <option value="sobre/seja_membro">sobre/seja_membro</option>
           </select>
         </div>
         <div class="col-12 mt-2">
@@ -53,7 +46,7 @@
             {% if solicitacoes is defined %}
               {% for solicitacao in solicitacoes %}
                 <tr data-status="{{ solicitacao.status }}" data-origem="{{ solicitacao.origem }}">
-                  <td>{{ solicitacao.form.nome_do_responsavel }}</td>
+                  <td>{{ solicitacao.form.nome }}</td>
                   <td>{{ solicitacao.joined|format_datetime(true, 'd/m/Y - ') }}</td>
                   <td>{{ solicitacao.form.email }}</td>
                   <td>{{ solicitacao.form.telefone }}</td>

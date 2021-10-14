@@ -38,8 +38,8 @@ $_['upload_arquivo_pagina'] = array(
 );
 $_['error_upload_arquivo_pagina'] = array(
   'type' => 'error',
-  'text' => 'Erro ao enviar arquivo',
-  'title' => 'Enviar arquivo da página'
+  'title' => 'Erro ao enviar arquivo',
+  'text' => '%s'
 );
 $_['remover_arquivo_pagina'] = array(
   'type' => 'success',

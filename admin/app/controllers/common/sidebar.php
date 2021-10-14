@@ -34,17 +34,17 @@ class ControllerCommonSidebar extends BaseController {
       'icon' => '<i class="align-middle" data-feather="layout"></i>'
     );
 
-    // $menu[] = array(
-    //   'name' => 'Gerenciar produtos',
-    //   'url' => $this->url->link('produtos/home'),
-    //   'icon' => '<i class="align-middle" data-feather="layout"></i>'
-    // );
+    $menu[] = array(
+      'name' => 'Gerenciar produtos',
+      'url' => $this->url->link('produtos/home'),
+      'icon' => '<i class="align-middle" data-feather="layout"></i>'
+    );
 
-    // $menu[] = array(
-    //   'name' => 'Gerenciar notícias',
-    //   'url' => $this->url->link('noticias/home'),
-    //   'icon' => '<i class="align-middle" data-feather="layout"></i>'
-    // );
+    $menu[] = array(
+      'name' => 'Gerenciar notícias',
+      'url' => $this->url->link('noticias/home'),
+      'icon' => '<i class="align-middle" data-feather="layout"></i>'
+    );
 
     $menu[] = array(
       'name' => 'Solicitações',

@@ -22,7 +22,6 @@ class ControllerPaginasHome extends BaseController {
     
     $data['url_order'] = $this->url->link('paginas/home/order');
     $data['url_desativar_pagina'] = $this->url->link('paginas/home/desativar_pagina');
-    $data['url_duplicar'] = $this->url->link('paginas/home/duplicar');
     $data['add'] = $this->url->link('paginas/home/add');
     $data['edit'] = $this->url->link('paginas/home/edit');
     if (is_array($data['pagina_atual'])) $data['add'] .= '&id=' . $data['pagina_atual']['idpagina'];
@@ -58,7 +57,7 @@ class ControllerPaginasHome extends BaseController {
       $pagina = array();
 
       $pagina['nome'] = $this->request->post['inputNome'];
-      $pagina['externo'] = isset($this->request->post['inputLinkExterno']) && $this->request->post['inputLinkExterno'] == '1' ? $this->request->post['inputUrl'] : 0;
+      $pagina['externo'] = isset($this->request->post['inputLinkExterno']) && $this->request->post['inputLinkExterno'] == '1' ? $this->request->post['inputUrl'] : '0';
       $pagina['ativo'] = 1;
       if (isset($this->request->post['inputIdsublink']) && $this->request->post['inputIdsublink'] != 0) {
         $pagina['sublink'] = $this->request->post['inputIdsublink'];
@@ -156,6 +155,7 @@ class ControllerPaginasHome extends BaseController {
 
         if (sizeof($blocos_old) > 0) {
           foreach($blocos_old as $key => $val) {
+            print_r($val);
             if (!in_array($val['idbloco_pagina'], $blocos_obj)) {
               $this->model_pagina_bloco->delete($val['idbloco_pagina']);
             }
@@ -253,72 +253,144 @@ class ControllerPaginasHome extends BaseController {
       $arquivo['ativo'] = 1;
 
       
-      if (isset($this->request->files['inputImagem']['name']) && $this->request->files['inputImagem']['size'] > 0) {
-        $ext_capa = strtolower(pathinfo($this->request->files['inputImagem']['name'], PATHINFO_EXTENSION));
-        if (in_array($ext_capa , $capa_ext)) {
-          if ($this->request->files['inputImagem']['size'] < $capa_size) {
-            $uniq = uniqid();
-            $img_capa = "img".$uniq. "." . $ext_capa;
-            $img_thumb = "compressed/img".$uniq. ".jpg";
+      if (isset($this->request->files['inputImagem']['name']) && is_array($this->request->files['inputImagem']['name']) && sizeof($this->request->files['inputImagem']['name']) > 0) {
+        for ($i=0; $i<sizeof($this->request->files['inputImagem']['name']); $i++) {
+          $ext_capa = strtolower(pathinfo($this->request->files['inputImagem']['name'][$i], PATHINFO_EXTENSION));
+          if (in_array($ext_capa , $capa_ext)) {
+            if ($this->request->files['inputImagem']['size'][$i] < $capa_size) {
+              $uniq = uniqid();
+              $img_capa = "img".$uniq. "." . $ext_capa;
+              $img_thumb = "compressed/img".$uniq. ".jpg";
 
-            $source = $this->request->files['inputImagem']['tmp_name'];
-            $destination = $capa_path . $img_capa;
+              $source = $this->request->files['inputImagem']['tmp_name'][$i];
+              $destination = $capa_path . $img_capa;
 
-            if (move_uploaded_file($source, $destination)) {
-              // tudo certo com o envio da imagem, salvando arquivos
-              $thumb = $this->func->compressImage($destination, $capa_path . $img_thumb, 75);
-              if ($thumb) {
-                $arquivo['thumbnail'] = $img_thumb;
+              // echo "<pre>";
+              //   print_r($this->request->files);
+              //   print_r($source);
+              //   print_r($destination);
+              // echo "</pre>";
+              // exit;
+
+              if (move_uploaded_file($source, $destination)) {
+                // tudo certo com o envio da imagem, salvando arquivos
+                $imagens_ext = array('png', 'jpg', 'jpeg');
+                if (in_array($ext_capa, $imagens_ext)) {
+                  $thumb = $this->func->compressImage($destination, $capa_path . $img_thumb, 75);
+                  if ($thumb) {
+                    $arquivo['thumbnail'] = $img_thumb;
+                  } else {
+                    if (!isset($this->request->post['modal'])) {
+                      $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #5 - Erro ao comprimir - ' . $this->request->files['inputImagem']['tmp_name'][$i] . ' -> ' . $capa_path . $img_capa);
+                      $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+                    } else {
+                      $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #5 - Erro ao comprimir - ' . $this->request->files['inputImagem']['tmp_name'][$i] . ' -> ' . $capa_path . $img_capa));
+                      exit;
+                    }  
+                  }
+                }
+                $arquivo['arquivo'] = $img_capa;
+                $this->model_arquivo_arquivo->save($arquivo);
               } else {
                 if (!isset($this->request->post['modal'])) {
-                  $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina');
+                  $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #4 - Arquivo não enviado - ' . $this->request->files['inputImagem']['tmp_name'][$i] . ' -> ' . $capa_path . $img_capa);
                   $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
                 } else {
-                  $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #5 - Erro ao comprimir - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa));
+                  $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #4 - Arquivo não enviado - ' . $this->request->files['inputImagem']['tmp_name'][$i] . ' -> ' . $capa_path . $img_capa));
                   exit;
                 }  
               }
-              $arquivo['arquivo'] = $img_capa;
             } else {
               if (!isset($this->request->post['modal'])) {
-                $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina');
+                $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #3 - Arquivo muito grande');
                 $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
               } else {
-                $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #4 - Arquivo não enviado - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa));
+                $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #3 - Arquivo muito grande'));
                 exit;
               }  
             }
           } else {
             if (!isset($this->request->post['modal'])) {
-              $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina');
+              $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #2 - Extensão não suportada');
               $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
             } else {
-              $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #3 - Arquivo muito grande'));
+              $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #2 - Extensão não suportada'));
+              exit;
+            }  
+          }  
+        }
+
+      } else {
+        if (isset($this->request->files['inputImagem']['name']) && $this->request->files['inputImagem']['size'] > 0) {
+          $ext_capa = strtolower(pathinfo($this->request->files['inputImagem']['name'], PATHINFO_EXTENSION));
+          if (in_array($ext_capa , $capa_ext)) {
+            if ($this->request->files['inputImagem']['size'] < $capa_size) {
+              $uniq = uniqid();
+              $img_capa = "img".$uniq. "." . $ext_capa;
+              $img_thumb = "compressed/img".$uniq. ".jpg";
+
+              $source = $this->request->files['inputImagem']['tmp_name'];
+              $destination = $capa_path . $img_capa;
+
+              if (move_uploaded_file($source, $destination)) {
+                // tudo certo com o envio da imagem, salvando arquivos
+                $imagens_ext = array('png', 'jpg', 'jpeg');
+                if (in_array($ext_capa, $imagens_ext)) {
+                  $thumb = $this->func->compressImage($destination, $capa_path . $img_thumb, 75);
+                  if ($thumb) {
+                    $arquivo['thumbnail'] = $img_thumb;
+                  } else {
+                    if (!isset($this->request->post['modal'])) {
+                      $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #5 - Erro ao comprimir - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa);
+                      $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+                    } else {
+                      $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #5 - Erro ao comprimir - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa));
+                      exit;
+                    }  
+                  }
+                }
+                $arquivo['arquivo'] = $img_capa;
+              } else {
+                if (!isset($this->request->post['modal'])) {
+                  $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #4 - Arquivo não enviado - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa);
+                  $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+                } else {
+                  $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #4 - Arquivo não enviado - ' . $this->request->files['inputImagem']['tmp_name'] . ' -> ' . $capa_path . $img_capa));
+                  exit;
+                }  
+              }
+            } else {
+              if (!isset($this->request->post['modal'])) {
+                $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #3 - Arquivo muito grande');
+                $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+              } else {
+                $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #3 - Arquivo muito grande'));
+                exit;
+              }  
+            }
+          } else {
+            if (!isset($this->request->post['modal'])) {
+              $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #2 - Extensão não suportada');
+              $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+            } else {
+              $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #2 - Extensão não suportada'));
               exit;
             }  
           }
         } else {
-          if (!isset($this->request->post['modal'])) {
-            $this->session->data['success'] = array('key' => 'error_upload_arquivo_pagina');
-            $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
-          } else {
-            $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #2 - Extensão não suportada'));
-            exit;
-          }  
+          if (!isset($this->request->post['idarquivo']) || $this->request->post['idarquivo'] == '' || $this->request->post['idarquivo'] == 0) {
+            if (!isset($this->request->post['modal'])) {
+              $this->session->data['error'] = array('key' => 'error_upload_arquivo_pagina', 'data' => 'ERRO INTERNO #1');
+              $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
+            } else {
+              $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #1'));
+              exit;
+            }  
+          }
         }
-      } else {
-        if (!isset($this->request->post['idarquivo']) || $this->request->post['idarquivo'] == '' || $this->request->post['idarquivo'] == 0) {
-          if (!isset($this->request->post['modal'])) {
-            $this->session->data['error'] = array('key' => 'error_upload_arquivo_pagina');
-            $this->response->redirect($this->url->link('paginas/home/arquivos&id=' . $arquivo['idpagina']));
-          } else {
-            $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #1'));
-            exit;
-          }  
-        }
+      
+        $arquivo = $this->model_arquivo_arquivo->save($arquivo);
       }
-    
-      $arquivo = $this->model_arquivo_arquivo->save($arquivo);
 
       if (!isset($this->request->post['modal'])) {
         $this->session->data['success'] = array('key' => 'upload_arquivo_pagina');
@@ -508,60 +580,6 @@ class ControllerPaginasHome extends BaseController {
     $data['breadcrumbs'][sizeof($data['breadcrumbs']) - 1]['active'] = true;
 
     return $data;
-  }
-
-  public function duplicar() {
-    if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-      if (isset($this->request->post['idpagina']) && $this->request->post['idpagina'] !== '') {
-        $this->load->model('pagina/pagina');
-        $this->load->model('pagina/bloco');
-        $this->load->model('arquivo/arquivo');
-        $pagina = $this->func->getPage($this->request->post['idpagina'], false);
-        $new_pagina = $pagina['pagina'];
-        unset($new_pagina['idpagina']);
-        $new_pagina['nome'] = $new_pagina['nome'] . ' Cópia';
-        $new_pagina = $this->model_pagina_pagina->add($new_pagina);
-        $imagens = $this->model_arquivo_arquivo->getByIdpagina($this->request->post['idpagina']);
-
-        if (sizeof($imagens) > 0) {
-          foreach($imagens as $i => $imagem) {
-            $new_imagem = $imagem;
-            unset($imagem['idarquivo']);
-            $new_imagem['idpagina'] = $new_pagina['idpagina'];
-          }
-        }
-
-        if (sizeof($pagina['blocos']) > 0) {
-          foreach($pagina['blocos'] as $i => $bloco) {
-            $new_bloco = $bloco;
-            unset($new_bloco['idbloco_pagina']);
-            $arquivos = $new_bloco['arquivos'];
-            unset($new_bloco['arquivos']);
-
-            $new_bloco['idpagina'] = $new_pagina['idpagina'];
-            $new_bloco = $this->model_pagina_bloco->add($new_bloco);
-
-            if (sizeof($arquivos) > 0) {
-              foreach($arquivos as $a => $arquivo) {
-                $new_arquivo = $arquivo;
-                unset($new_arquivo['idarquivo']);
-                $new_arquivo['idpagina'] = $new_pagina['idpagina'];
-                $new_arquivo['idbloco'] = $new_bloco['idbloco_pagina'];
-
-                $new_arquivo = $this->model_arquivo_arquivo->add($new_arquivo);
-              }
-            }
-          }
-        }
-
-        
-        
-        $this->response->json(array('error' => false));
-        
-      } else {
-        $this->response->json(array('error' => true, 'msg' => 'ERRO INTERNO #2'));
-      }
-    } 
   }
   
 }

@@ -1,12 +1,13 @@
 {{ header }}
 
-<div class="container-fluid quemsomos" id="quemsomos" style="background-image: url(assets/img/bg-quem.png);">
+<div class="container-fluid quemsomos" id="quemsomos" style="background-image: url('{{ pagina.blocos['banner']['arquivos']['foto']['arquivo']|get_upload_link() }}');">
   <div class="container">
     <div class="row bg">
-      <div class="col-9 col-md-5 my-auto">
+      {# <div class="col-9 col-md-5 my-auto">
         <h2>Nascemos <br> para <span>libertar</span> <br>empreendedores <br>das rotinas <br>administrativas <br>e financeiras.</h2>
         <!-- <h1>Liberte-se!</h1> -->
-      </div>
+      </div> #}
+      {{ pagina.blocos['banner']['conteudo'] }}
     </div>
   </div>
 </div>
@@ -14,8 +15,9 @@
   <div class="row">
     <div class="col-10 mx-auto">
       <!-- <p>A Libertas nasceu com a missão de libertar você, empreendedor, das rotinas administrativas e financeiras, para que você possa fazer o que faz de melhor.</p> -->
-      <p>Enquanto nós cuidamos da operação do seu financeiro e administrativo, você fica com a cabeça livre para pensar em novas estratégias, novos produtos ou serviços, expansão do negócio, prospecção de novos clientes e parceiros, e tudo que envolva o crescimento do seu negócio.</p>
-      <h1>Liberte-se já!</h1>
+      {# <p>Enquanto nós cuidamos da operação do seu financeiro e administrativo, você fica com a cabeça livre para pensar em novas estratégias, novos produtos ou serviços, expansão do negócio, prospecção de novos clientes e parceiros, e tudo que envolva o crescimento do seu negócio.</p>
+      <h1>Liberte-se já!</h1> #}
+      {{ pagina.blocos['quemsomos']['conteudo'] }}
     </div>
   </div>
 </div>
@@ -25,18 +27,20 @@
   <div class="container">
     <h3>O que fazemos</h3>
     <div class="row">
+      {% for servico in servicos.sub %}
       <div class="col-12 col-md-4">
         <div class="card">
           <a href="javascript:;" data-toggle="modal" data-target="#nfs" class="btn-plus"><img src="assets/img/cards/plus.png" alt="Mais"></a>
           <div class="card-header">
-            <img src="assets/img/cards/bill.png" alt="Emissão de Notas Fiscais e Boletos">
+            <img src="{{ servico.arquivos['icone']['arquivo']|get_upload_link() }}" alt="{{ servico.arquivos['icone']['descricao'] }}">
           </div>
           <div class="card-body">
-            <h5>Emissão de Notas Fiscais e Boletos</h5>
+            <h5>{{ servico.arquivos['icone']['descricao'] }}</h5>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-4">
+      {% endfor %}
+      {# <div class="col-12 col-md-4">
         <div class="card">
           <a href="#" data-toggle="modal" data-target="#rcc" class="btn-plus"><img src="assets/img/cards/plus.png" alt="Mais"></a>
           <div class="card-header">
@@ -90,7 +94,7 @@
             <h5>Análise e Previsão de Contas</h5>
           </div>
         </div>
-      </div>
+      </div> #}
     </div>
   </div>
 </div>

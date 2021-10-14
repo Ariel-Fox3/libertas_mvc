@@ -16,7 +16,7 @@ class ModelArquivoArquivo extends BaseModel{
     }
 
     public function getByIdproduto($idproduto) {
-      $q = sprintf('SELECT * FROM arquivo WHERE idproduto = %s', (int)$idproduto);
+      $q = sprintf('SELECT * FROM arquivo WHERE idproduto = %s ORDER BY ordem ASC', (int)$idproduto);
       return $this->db->query($q)->rows;
     }
 
