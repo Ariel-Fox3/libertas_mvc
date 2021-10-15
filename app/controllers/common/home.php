@@ -14,7 +14,7 @@ class ControllerCommonHome extends BaseController {
     $data['servicos'] = $this->func->getPage(5); // ID DA PÁGINA NO ADMIN
 
     // echo "<pre>";
-    //   print_r($data['servicos']['sub']);
+    //   print_r($data['pagina']);
     // echo "</pre>";
     // exit;
 

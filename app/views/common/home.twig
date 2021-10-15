@@ -30,12 +30,12 @@
       {% for servico in servicos.sub %}
       <div class="col-12 col-md-4">
         <div class="card">
-          <a href="javascript:;" data-toggle="modal" data-target="#nfs" class="btn-plus"><img src="assets/img/cards/plus.png" alt="Mais"></a>
+          <a href="javascript:;" data-toggle="modal" data-target="#{{ servico.blocos['url']['conteudo'] }}" class="btn-plus"><img src="assets/img/cards/plus.png" alt="Mais"></a>
           <div class="card-header">
-            <img src="{{ servico.arquivos['icone']['arquivo']|get_upload_link() }}" alt="{{ servico.arquivos['icone']['descricao'] }}">
+            <img src="{{ servico.arquivos['icone']['arquivo']|get_upload_link() }}" alt="{{ servico.nome }}">
           </div>
           <div class="card-body">
-            <h5>{{ servico.arquivos['icone']['descricao'] }}</h5>
+            <h5>{{ servico.nome }}</h5>
           </div>
         </div>
       </div>
@@ -104,6 +104,13 @@
   <h4>Libertados</h4>
   <div class="imagens_inf pb-5 pt-4">
     <div class="row imagens">
+      {% for libertados in pagina.blocos['libertados']['arquivos'] %}
+        <div class="col-4 col-md-2 mx-auto text-center my-auto pb-3">
+          <img src="{{ libertados['arquivo']|get_upload_link() }}" class="img-fluid">
+        </div>
+      {% endfor %}
+    </div>
+    {# <div class="row imagens">
       <div class="col-4 col-md-2 mx-auto text-center my-auto pb-3">
         <img src="assets/img/libertados/bananas.png" class="img-fluid">
       </div>
@@ -122,7 +129,7 @@
       <div class="col-4 col-md-2 mx-auto text-center my-auto pb-3">
         <img src="assets/img/libertados/logoshoot1.png" class="img-fluid">
       </div>
-    </div>
+    </div> #}
   </div>
   <div class="comentarios mt-4">
     <div class="row  ">
@@ -254,5 +261,145 @@
     </div>
   </div>
 </div>
+
+{% for servico in servicos.sub %}
+  <div class="modal fade" id="{{ servico.blocos['url']['conteudo'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ servico.nome }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ servico.blocos['modal']['conteudo'] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{# <div class="modal fade" id="nfs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Emissão de Notas Fiscais e Boletos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Emitimos todas as notas fiscais, faturas e boletos da sua empresa para você. Preocupe-se somente em fechar negócios. O resto é com a gente</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="rcc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Relacionamento com a Contabilidade</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Fazemos todo o fechamento fiscal e contábil e de forma organizada, enviamos todas as informações necessárias para o seu contador realizar a contabilidade e gerar os impostos.</p>
+        <p>Ah! E além de enviarmos ao seu contador, também arquivamos em pastas compartilhadas. Assim tudo fica super acessível a poucos cliques de distância.</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Conciliação Bancária</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Conciliamos toda a movimentação das suas contas bancárias e faturas de cartões de crédito.</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cpr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Contas a pagar e a receber</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Não se preocupe mais em acessar seu banco para pagar contas ou conferir se recebeu os pagamentos de seus clientes. Nós cuidamos de tudo e organizamos todos os seus pagamentos para que nenhum prazo seja perdido, evitando juros e multas.</p>
+        <p>Fazemos o controle de todos os seus recebimentos, seja por depósito, PIX, boleto, cartão de crédito ou débito, cheque, dinheiro.</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Fluxo de Caixa e Demonstração dos Resultados do Exercício (DRE)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Personalizamos nossas super planilhas de Fluxo de Caixa e DRE, tornando-as fáceis de serem compreendidas. Preencheremos as planilhas diariamente, assim os dados sempre estarão atualizados.</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="apc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Análise e Previsão de Contas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Olhamos suas contas passadas e analisamos quais serão suas despesas e receitas para você estar ciente da saúde financeira da sua empresa.</p>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
+    </div>
+  </div>
+</div> #}
 
 {{ footer }}
