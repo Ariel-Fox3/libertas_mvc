@@ -1,5 +1,7 @@
 {{ header }}
 
+<script src="admin/assets/node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
+
 <div class="container-fluid quemsomos" id="quemsomos" style="background-image: url('{{ pagina.blocos['banner']['arquivos']['foto']['arquivo']|get_upload_link() }}');">
   <div class="container">
     <div class="row bg">
@@ -403,3 +405,27 @@
 </div> #}
 
 {{ footer }}
+
+{% if success is defined %}
+  <script>
+    $(document).ready(() => {
+      Swal.fire({
+        title: 'Solicitação de contato',
+        text: '{{ success }}',
+        icon: 'success'
+      });
+    })
+  </script>
+{% endif %}
+
+{% if error is defined %}
+  <script>
+    $(document).ready(() => {
+      Swal.fire({
+        title: 'Solicitação de contato',
+        text: '{{ error }}',
+        icon: 'error'
+      });
+    })
+  </script>
+{% endif %}

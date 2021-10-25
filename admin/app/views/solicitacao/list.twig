@@ -203,7 +203,7 @@
         if (res.error == false) {
           let solicitacao = res.msg;
           var modal = $('#modalDetalhes');
-          modal.find('h4').text(solicitacao.form.nome_completo);
+          modal.find('h4').text(solicitacao.form.nome);
           modal.find('h5').text(solicitacao.status);
           modal.find('.badge').text(solicitacao.origem);
           modal.find('.phone').text(solicitacao.form.telefone);

@@ -48,7 +48,7 @@ class ControllerCommonHome extends BaseController {
             'form' => json_encode($form),
             'user' => json_encode($req),
             'status' => $status[0],
-            'origem' => 'Agendar reunião'
+            'origem' => 'Contato'
           );
     
           $this->load->model('solicitacao/solicitacao');
@@ -59,19 +59,20 @@ class ControllerCommonHome extends BaseController {
             'nome' => $form['nome'],
             'email' => $form['email'],
             'telefone' => $form['telefone'],
-            'motivos' => $form['motivos']
+            'motivos' => $form['motivos'],
+            'link' => HTTP_SERVER . 'admin/index.php?route=solicitacao/home'
           );
+
           $mail_template = $this->load->view('mail/solicitacao_reuniao', $info);
           $destinatarios = array('gabriel@foxthree.com.br');
           $r = $this->mail->send_mail($destinatarios, 'Novo contato no site Libertas', $mail_template);
           
-    
-          $this->response->json(array('error' => false, 'msg' => 'Solicitação de contato enviada com sucesso!'));
+          $data['success'] = 'Solicitação de contato enviada com sucesso!';
         } else {
-          $this->response->json(array('error' => true, 'msg' => 'Falha na verificação do reCaptcha.'));
+          $data['error'] = 'Falha na verificação do reCaptcha.';
         }
       } else {
-        $this->response->json(array('error' => true, 'msg' => 'Falha na verificação do reCaptcha.'));
+        $data['error'] = 'Falha na verificação do reCaptcha.';
       }
       
     }
